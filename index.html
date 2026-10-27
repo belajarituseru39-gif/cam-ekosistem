@@ -31,7 +31,7 @@
   }
   #webcam-video {
     position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-    object-fit: cover; transform: scaleX(-1); z-index: 1;
+    object-fit: contain; transform: scaleX(-1); z-index: 1;
     pointer-events: none;
   }
   #motion-canvas {
@@ -158,13 +158,11 @@
             <img src="asset/char_raka_idle.png" alt="Raka Penjaga Rimba" class="w-24 h-24 md:w-32 md:h-32 object-contain" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
             <svg class="hidden w-24 h-24 md:w-32 md:h-32" viewBox="0 0 120 120" aria-hidden="true">
               <circle cx="60" cy="60" r="52" fill="#1B4332" stroke="#4ADE80" stroke-width="4"/>
-              <!-- Topi Rimba Daun -->
               <path d="M25 48 Q60 15 95 48 Z" fill="#2E7D32" stroke="#FFF8E7" stroke-width="3"/>
               <circle cx="60" cy="62" r="22" fill="#FDE68A"/>
               <circle cx="52" cy="58" r="3.5" fill="#0F291E"/>
               <circle cx="68" cy="58" r="3.5" fill="#0F291E"/>
               <path d="M52 70 Q60 76 68 70" stroke="#0F291E" stroke-width="3" fill="none" stroke-linecap="round"/>
-              <!-- Lencana Daun -->
               <path d="M40 88 L80 88 L85 110 L35 110 Z" fill="#15803D"/>
               <circle cx="60" cy="98" r="6" fill="#FFB300"/>
             </svg>
@@ -175,14 +173,11 @@
             <img src="asset/char_ksatria_idle.png" alt="Sir Arka Kesatria Fantasi" class="w-24 h-24 md:w-32 md:h-32 object-contain" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
             <svg class="hidden w-24 h-24 md:w-32 md:h-32" viewBox="0 0 120 120" aria-hidden="true">
               <circle cx="60" cy="60" r="52" fill="#451A03" stroke="#FBBF24" stroke-width="4"/>
-              <!-- Helm Kesatria Fantasi -->
               <path d="M32 55 Q60 20 88 55 L84 82 Q60 92 36 82 Z" fill="#94A3B8" stroke="#FFF8E7" stroke-width="3"/>
               <path d="M55 18 Q60 8 68 18 L60 34 Z" fill="#FFB300"/>
-              <!-- Visor -->
               <rect x="42" y="52" width="36" height="12" rx="4" fill="#0F291E"/>
               <circle cx="52" cy="58" r="3" fill="#38BDF8"/>
               <circle cx="68" cy="58" r="3" fill="#38BDF8"/>
-              <!-- Perisai Akar Emas -->
               <path d="M38 86 L82 86 L76 110 L44 110 Z" fill="#D97706" stroke="#FEF08A" stroke-width="2"/>
             </svg>
             <span class="mt-1 text-xs font-extrabold bg-amber-600 px-2.5 py-0.5 rounded-full">P2/COM • Kesatria Arka</span>
@@ -198,7 +193,7 @@
             PENJAGA RIMBA: GELEMBUNG EKOSISTEM
           </h1>
           <p class="mt-2 text-sm md:text-base text-emerald-100 leading-relaxed">
-            Arahkan dan tahan tanganmu pada <strong>Gelembung Jawaban Mengambang</strong> di layar kamera untuk menjaga keseimbangan rantai makanan dan memprediksi dampak perubahan populasi! Mendukung <strong>Mode Duduk (Orbit Tangan Dekat)</strong> maupun Berdiri.
+            Gerakkan tanganmu di dalam <strong>Gelembung Jawaban Mengambang</strong> pada layar kamera untuk menjaga keseimbangan rantai makanan dan memprediksi dampak perubahan populasi! Mendukung <strong>Mode Duduk (Orbit Tangan Dekat)</strong> maupun Berdiri.
           </p>
 
           <!-- Pilihan Cepat Pengaturan Permainan -->
@@ -264,19 +259,12 @@
         <div class="mt-4 grid grid-cols-1 md:grid-cols-2 gap-4 items-center">
           <div class="space-y-2 text-sm md:text-base">
             <p id="calib-desc" class="text-emerald-100 leading-relaxed">
-              Posisikan wajah di area tengah layar, lalu arahkan tangan ke atas <strong>Gelembung Uji Mengambang</strong> dan tahan sekitar 2 detik hingga bar hijau penuh.
+              Posisikan wajah di area tengah layar, lalu <strong>lambaikan atau gerakkan tanganmu di dalam Gelembung Uji</strong> hingga bar hijau penuh!
             </p>
-            <label for="camera-sensitivity" class="block text-sm font-bold text-amber-200">Kepekaan kamera</label>
-            <select id="camera-sensitivity" class="w-full bg-emerald-950 text-white rounded-lg p-2 border border-emerald-500">
-              <option value="0.06" selected>Seimbang — disarankan</option>
-              <option value="0.10">Rendah — jika mudah terpicu</option>
-              <option value="0.035">Lebih peka — jika tangan sulit terbaca</option>
-            </select>
-            <p class="text-xs text-emerald-200">Turunkan tangan saat kamera dinyalakan. Arahkan telapak ke tengah gelembung, tahan 2 detik. Untuk mengambil ulang latar, turunkan tangan lalu tekan Muat Ulang Kamera.</p>
             <ul class="text-xs md:text-sm space-y-1.5 text-amber-100 bg-black/40 p-3 rounded-xl border border-white/10">
-              <li>✅ <strong>Tahan untuk Memilih:</strong> Arahkan satu tangan ke gelembung selama sekitar 2 detik. Bar hanya bertambah selama area tersebut terdeteksi aktif. Tarik tangan untuk membatalkan atau sebelum memilih jawaban berikutnya.</li>
+              <li>✅ <strong>Anti-Jawab Sendiri:</strong> Sensor kini mengabaikan bintik cahaya kamera dan hanya mengisi bar saat ada gerakan tangan nyata di dalam gelembung.</li>
               <li>🪑 <strong>Mode Duduk Aktif:</strong> Orbit gelembung ditarik lebih dekat ke jangkauan tangan sambil duduk santai.</li>
-              <li>⌨️ <strong>Tanpa Kamera?</strong> Klik/Sentuh langsung gelembung untuk memilih seketika tanpa menunggu loading!</li>
+              <li>⌨️ <strong>Tanpa Kamera?</strong> Klik/Sentuh langsung gelembung untuk memilih seketika!</li>
             </ul>
           </div>
 
@@ -284,13 +272,12 @@
           <div class="flex flex-col items-center justify-center bg-black/50 p-4 rounded-2xl border border-emerald-500/40">
             <div id="practice-target" tabindex="0" role="button" aria-label="Gelembung Uji Gerak Tangan"
                  class="quadrant-card w-full h-36 flex flex-col items-center justify-center p-4 text-center select-none">
-              <span class="text-xs font-bold text-amber-300 uppercase">GELEMBUNG UJI MENGAMBANG / SENTUH</span>
-              <span class="text-lg font-extrabold mt-1">🫧 Sentuh dengan Tangan di Kamera atau Klik!</span>
+              <span class="text-xs font-bold text-amber-300 uppercase">GELEMBUNG UJI GERAK TANGAN / SENTUH</span>
+              <span class="text-lg font-extrabold mt-1">👋 Lambaikan Tangan di Sini atau Klik!</span>
               <div class="w-4/5 h-3 bg-slate-800 rounded-full mt-3 overflow-hidden border border-white/20">
                 <div id="practice-progress" class="h-full bg-emerald-400 transition-all duration-75" style="width: 0%;"></div>
               </div>
-              <span id="practice-sensor-status" role="status" class="text-xs text-amber-200 mt-2">Gerakkan tangan masuk ke gelembung uji.</span>
-              <span id="practice-timer-label" class="text-xs text-emerald-200 mt-2">Tahan tangan 2 detik atau klik untuk mulai.</span>
+              <span id="practice-timer-label" class="text-xs text-emerald-200 mt-2">Latihan dapat dilewati kapan saja...</span>
             </div>
           </div>
         </div>
@@ -312,7 +299,7 @@
     </section>
 
     <!-- ================= 3. HUD & ARENA BERMAIN UTAMA (90-100% KAMERA) ================= -->
-<section id="gameplay-screen" class="hidden w-full h-full flex flex-col justify-between pointer-events-none">
+    <section id="gameplay-screen" class="hidden w-full h-full flex flex-col justify-between pointer-events-none">
       
       <!-- HUD ATAS RINGKAS (Maks 10-12% Tinggi Layar) -->
       <header class="interactive-el w-full bg-slate-950/85 backdrop-blur-md border-b border-white/20 px-3 py-2 flex items-center justify-between gap-2 z-20" style="min-height: 56px; max-height: 14dvh;">
@@ -327,10 +314,10 @@
           </div>
         </div>
 
-        <!-- Info Tengah: Indikator Status Detektor & Fase -->
+        <!-- Info Tengah: Indikator Status Detektor & Sensitivitas -->
         <div class="flex items-center gap-2 text-center">
-          <span id="detector-badge" class="px-3 py-1.5 rounded-full text-xs font-extrabold bg-emerald-700 text-white border border-emerald-300">
-            🫧 Detektor Seimbang Aktif
+          <span id="detector-badge" class="hidden sm:inline-block px-3 py-1.5 rounded-full text-xs font-extrabold bg-emerald-700 text-white border border-emerald-300">
+            👋 Sensor Gerak Aktif (Anti-Ghosting)
           </span>
           <span id="global-motion-alert" class="hidden px-3 py-1.5 rounded-full text-xs font-extrabold bg-red-600 text-white animate-bounce">
             ⚠️ Gerakan Terlalu Luas! Fokus 1 Tangan
@@ -356,7 +343,7 @@
 
       <!-- BAR BAWAH SANGAT RINGKAS (Petunjuk Kontrol & Postur) -->
       <footer class="interactive-el w-full bg-slate-950/75 px-3 py-1.5 flex items-center justify-between text-[11px] md:text-xs text-emerald-200 border-t border-white/15 z-20">
-        <span id="footer-control-hint">💡 Tahan tangan di dalam gelembung stabil (2 dtk) atau klik layar & tombol Q,W,A,S.</span>
+        <span id="footer-control-hint">💡 Gerakkan/lambaikan tangan di dalam gelembung pilihanmu (~0,65 dtk) atau klik langsung.</span>
         <div class="flex items-center gap-3">
           <button id="btn-switch-posture-live" class="underline font-bold text-amber-300 hover:text-amber-200 cursor-pointer">
             🪑 Ubah Mode Duduk/Berdiri
@@ -473,9 +460,9 @@
           <button id="btn-close-guide" class="btn-game bg-slate-800 text-xs px-3 min-h-[40px]">✖ Tutup</button>
         </div>
         <div class="space-y-3 text-sm text-emerald-100 leading-relaxed">
-          <p><strong>1. Fase Baca Aman (Bisa Langsung Jawab!):</strong> Saat soal baru muncul, waktu hitung mundur berhenti sejenak agar kamu tidak terburu-buru. Namun jika kamu sudah tahu jawabannya, kamu bisa <strong>langsung memilih gelembung tanpa harus menunggu Fase Baca selesai</strong>.</p>
-          <p><strong>2. Gelembung Mengambang — Tahan untuk Memilih:</strong> Empat gelembung jawaban (A, B, C, D) melayang lembut di sekitar tepi layar. Arahkan tanganmu ke gelembung yang benar selama <strong>2 detik</strong> hingga indikatornya penuh. Tarik tangan jika ingin membatalkan. Setelah menjawab, turunkan tangan sebentar dan tunggu fase baca selesai sebelum memilih lagi. Kamu juga bisa langsung mengklik/menyentuh layar secara instan.</p>
-          <p><strong>3. Anti-Curang Gerak Seluruh Tubuh:</strong> Jika kamu melompat atau menggoyangkan seluruh badan sehingga semua gelembung terkena gerakan kuat serentak, sistem otomatis menahan pengisian agar tidak salah pilih.</p>
+          <p><strong>1. Fase Baca Aman (2 Detik Awal):</strong> Saat soal baru muncul, waktu hitung mundur 30 detik berhenti sejenak dan sensor kamera dikunci sebentar agar kamu tidak salah pilih tanpa sengaja. Kamu tetap bisa mengklik langsung jika sudah tahu jawabannya.</p>
+          <p><strong>2. Gelembung Mengambang — Lambaikan Tangan di Dalam Gelembung:</strong> Empat gelembung jawaban (A, B, C, D) melayang lembut di sekitar tepi layar. Gerakkan atau lambaikan tanganmu tepat di dalam gelembung yang benar selama <strong>~0,65 detik</strong> hingga barnya penuh. Jika tangan ditarik keluar, bar akan turun kembali.</p>
+          <p><strong>3. Anti-Jawab Sendiri & Anti-Curang Gerak Seluruh Tubuh:</strong> Sensor mengabaikan perubahan cahaya kecil di latar belakang. Jika kamu melompat atau menggoyangkan seluruh badan sehingga semua gelembung terguncang serentak, sistem menahan pengisian agar tidak salah pilih.</p>
           <p><strong>4. Mode Aksesibilitas Duduk:</strong> Pilih <em>Mode Duduk</em> di menu utama atau di bar bawah agar lintasan mengambang gelembung ditarik lebih rapat ke jangkauan tangan sambil duduk.</p>
           <p><strong>5. Mode Duel 2 Pemain Serentak:</strong> Satu kamera dibagi menjadi Area Kiri (Pemain 1 - Raka) dan Area Kanan (Pemain 2 - Kesatria Arka). Masing-masing pemain memiliki gelembung mengambang, soal, dan skor mandiri!</p>
         </div>
@@ -1037,7 +1024,6 @@ class GameAudioManager {
     this.activeHtmlAudio = null;
     this.stepIndex = 0;
 
-    // Manifest file opsional sesuai spesifikasi
     this.optionalPaths = {
       menu_theme: "asset/audio/menu_theme.mp3",
       gameplay_theme: "asset/audio/gameplay_theme.mp3",
@@ -1047,7 +1033,7 @@ class GameAudioManager {
       win: "asset/audio/win.mp3",
       lose: "asset/audio/lose.mp3"
     };
-    this.fileCacheStatus = {}; // 'unknown' | 'ready' | 'failed'
+    this.fileCacheStatus = {};
     this.htmlAudioElements = {};
 
     this.loadPreferences();
@@ -1092,7 +1078,6 @@ class GameAudioManager {
     return this.muted;
   }
 
-  // Mencoba memutar HTMLAudioElement opsional dengan timeout aman
   tryOptionalAudio(key, isLoop = false, onFallback) {
     if (this.fileCacheStatus[key] === "failed") {
       onFallback();
@@ -1183,7 +1168,6 @@ class GameAudioManager {
     if (!this.ctx || this.muted) return;
 
     this.stepIndex = 0;
-    // Melodi 8-bit Orisinal: "Gerbang Petualangan" (menu) & "Misi Melaju" (gameplay)
     const menuNotes = [261.63, 329.63, 392.00, 523.25, 392.00, 329.63, 293.66, 349.23];
     const gameNotes = [329.63, 392.00, 440.00, 523.25, 493.88, 440.00, 392.00, 329.63, 293.66, 349.23, 392.00, 440.00];
     const seq = key === "menu_theme" ? menuNotes : gameNotes;
@@ -1255,10 +1239,10 @@ class GameAudioManager {
 }
 
 /* ============================================================================
-   3. DETEKTOR GERAK FRAME DIFFERENCING PER ZONA KUADRAN
-   Tanpa model ML tubuh/tangan. Menjumlahkan perubahan piksel per kuadran,
-   dilengkapi pencegahan gerak seluruh tubuh (global motion spike suppression),
-   dwell time, cooldown, dan deteksi pencahayaan.
+   3. DETEKTOR GERAK FRAME DIFFERENCING ANTI-GHOSTING PER GELEMBUNG
+   Murni menghitung perubahan piksel nyata (Active Frame Differencing) di dalam
+   inti gelembung. Menghapus Adaptive Background Presence & Auto-Latch panjang
+   yang sebelumnya menyebabkan sensor mengisi sendiri tanpa tangan.
    ============================================================================ */
 class FrameDiffQuadrantDetector {
   constructor(videoEl, overlayCanvasEl) {
@@ -1274,18 +1258,14 @@ class FrameDiffQuadrantDetector {
     this.offCtx = this.offCanvas.getContext("2d", { willReadFrequently: true });
 
     this.prevFrameData = null;
-    this.bgFrameData = null;
     this.cameraReady = false;
     this.stream = null;
     this.brightness = 128;
     this.lightingStatus = "good";
     this.particles = [];
-    this.lastAnalysisAt = null;
   }
 
   async startCamera() {
-    this.cameraReady = false;
-    this.lastAnalysisAt = null;
     try {
       if (this.stream) {
         this.stream.getTracks().forEach(t => t.stop());
@@ -1299,7 +1279,6 @@ class FrameDiffQuadrantDetector {
       await this.video.play();
       this.cameraReady = true;
       this.prevFrameData = null;
-      this.bgFrameData = null;
       return { ok: true };
     } catch (err) {
       this.cameraReady = false;
@@ -1307,7 +1286,7 @@ class FrameDiffQuadrantDetector {
     }
   }
 
-  analyzeZones(zoneRectsByPlayer, lockedTargets = {}) {
+  analyzeZones(zoneRectsByPlayer) {
     const result = {
       cameraActive: this.cameraReady && this.video.readyState >= 2,
       lighting: this.lightingStatus,
@@ -1321,28 +1300,17 @@ class FrameDiffQuadrantDetector {
     this.offCtx.drawImage(this.video, -this.procWidth, 0, this.procWidth, this.procHeight);
     this.offCtx.restore();
 
-    const analysisNow = performance.now();
-    const elapsedMs = this.lastAnalysisAt === null ? 0 : Math.min(100, analysisNow - this.lastAnalysisAt);
-    this.lastAnalysisAt = analysisNow;
     const curr = this.offCtx.getImageData(0, 0, this.procWidth, this.procHeight).data;
-    if (!this.prevFrameData || !this.bgFrameData) {
+    if (!this.prevFrameData) {
       this.prevFrameData = new Uint8ClampedArray(curr);
-      this.bgFrameData = new Float32Array(curr.length);
-      for (let i = 0; i < curr.length; i++) this.bgFrameData[i] = curr[i];
       return result;
     }
 
     const prev = this.prevFrameData;
-    const bg = this.bgFrameData;
-    // Samakan zona sensor dengan gambar video (object-fit: cover).
-    const videoRect = this.video.getBoundingClientRect();
-    const scale = Math.max(videoRect.width / this.video.videoWidth, videoRect.height / this.video.videoHeight);
-    const imageW = this.video.videoWidth * scale;
-    const imageH = this.video.videoHeight * scale;
-    if (!(imageW > 0 && imageH > 0)) return result;
-    const imageLeft = videoRect.left + (videoRect.width - imageW) / 2;
-    const imageTop = videoRect.top + (videoRect.height - imageH) / 2;
+    const screenW = window.innerWidth || 1;
+    const screenH = window.innerHeight || 1;
 
+    // Evaluasi pencahayaan rata-rata
     let lumSum = 0;
     let sampleCount = 0;
     for (let i = 0; i < curr.length; i += 64) {
@@ -1355,126 +1323,76 @@ class FrameDiffQuadrantDetector {
     else this.lightingStatus = "good";
     result.lighting = this.lightingStatus;
 
-    // Median perubahan RGB menolak perubahan cahaya yang merata pada seluruh gambar.
-    const bgShift = this.medianFrameShift(curr, bg);
-    const prevShift = this.medianFrameShift(curr, prev);
-    const foreground = new Uint8Array(this.procWidth * this.procHeight);
-    const moving = new Uint8Array(foreground.length);
-    let movingPixels = 0;
-    for (let pixel = 0; pixel < foreground.length; pixel++) {
-      const i = pixel * 4;
-      let presenceDiff = 0;
-      let motionDiff = 0;
-      for (let c = 0; c < 3; c++) {
-        presenceDiff += Math.abs(curr[i + c] - bg[i + c] - bgShift[c]);
-        motionDiff += Math.abs(curr[i + c] - prev[i + c] - prevShift[c]);
-      }
-      foreground[pixel] = presenceDiff / 3 > 24 ? 1 : 0;
-      moving[pixel] = motionDiff / 3 > 20 ? 1 : 0;
-      movingPixels += moving[pixel];
+    // Hitung seberapa banyak piksel yang berubah di seluruh layar (untuk kompensasi auto-exposure kamera)
+    let globalActivePixels = 0;
+    const totalFramePixels = this.procWidth * this.procHeight;
+    for (let i = 0; i < curr.length; i += 16) {
+      const diff = (Math.abs(curr[i] - prev[i]) + Math.abs(curr[i + 1] - prev[i + 1]) + Math.abs(curr[i + 2] - prev[i + 2])) / 3;
+      if (diff > 28) globalActivePixels++;
     }
-    const wholeFrameMoving = movingPixels / foreground.length > 0.45;
-    const frozenBackground = new Uint8Array(foreground.length);
+    const globalChangeRatio = (globalActivePixels * 4) / totalFramePixels;
 
     for (const [playerKey, zones] of Object.entries(zoneRectsByPlayer)) {
       const scores = [];
-      const motionScores = [];
-      let extremeZonesCount = 0;
+      let activeZonesCount = 0;
 
       for (let z = 0; z < zones.length; z++) {
         const rect = zones[z];
-        // Bagian dalam gelembung: gerakan lewat di tepi lebih mudah diabaikan.
-        const padX = rect.width * 0.08;
-        const padY = rect.height * 0.08;
-        const x0 = Math.max(0, Math.floor(((rect.left + padX - imageLeft) / imageW) * this.procWidth));
-        const x1 = Math.min(this.procWidth - 1, Math.ceil(((rect.right - padX - imageLeft) / imageW) * this.procWidth));
-        const y0 = Math.max(0, Math.floor(((rect.top + padY - imageTop) / imageH) * this.procHeight));
-        const y1 = Math.min(this.procHeight - 1, Math.ceil(((rect.bottom - padY - imageTop) / imageH) * this.procHeight));
+        // Gunakan area dalam (inset 12%) agar bahu/kepala di pinggir luar gelembung tidak ikut memicu sensor
+        const insetX = rect.width * 0.12;
+        const insetY = rect.height * 0.12;
+        const x0 = Math.max(0, Math.floor(((rect.left + insetX) / screenW) * this.procWidth));
+        const x1 = Math.min(this.procWidth - 1, Math.ceil(((rect.right - insetX) / screenW) * this.procWidth));
+        const y0 = Math.max(0, Math.floor(((rect.top + insetY) / screenH) * this.procHeight));
+        const y1 = Math.min(this.procHeight - 1, Math.ceil(((rect.bottom - insetY) / screenH) * this.procHeight));
 
-        const width = Math.max(0, x1 - x0 + 1);
-        const height = Math.max(0, y1 - y0 + 1);
-        const totalPixels = width * height;
-        const mask = new Uint8Array(totalPixels);
-        const motionMask = new Uint8Array(totalPixels);
-        let motionPixels = 0;
+        let movingPixels = 0;
+        let weightedMotion = 0;
+        let totalPixels = 0;
+        // Ambang batas per piksel tinggi (28 dari 255) untuk membuang noise/bintik sensor kamera sepenuhnya
+        const pixelDiffThreshold = 28;
+
         for (let y = y0; y <= y1; y++) {
           for (let x = x0; x <= x1; x++) {
-            const pixel = y * this.procWidth + x;
-            const zonePixel = (y - y0) * width + x - x0;
-            mask[zonePixel] = foreground[pixel];
-            motionMask[zonePixel] = moving[pixel];
-            if (lockedTargets[playerKey] === z) frozenBackground[pixel] = 1;
-            motionPixels += moving[pixel];
+            const idx = (y * this.procWidth + x) * 4;
+            const dR = Math.abs(curr[idx] - prev[idx]);
+            const dG = Math.abs(curr[idx + 1] - prev[idx + 1]);
+            const dB = Math.abs(curr[idx + 2] - prev[idx + 2]);
+            const diffMotion = (dR + dG + dB) / 3;
+
+            if (diffMotion > pixelDiffThreshold) {
+              movingPixels++;
+              weightedMotion += Math.min(2.5, (diffMotion - pixelDiffThreshold) / 28);
+            }
+            totalPixels++;
           }
         }
-        // Hitung satu area menyambung, bukan kumpulan noise atau piksel yang diperkuat.
-        const largestRegion = this.largestRegionSize(mask, width, height);
-        const presenceRatio = totalPixels > 0 && largestRegion >= 3 ? largestRegion / totalPixels : 0;
-        scores.push(presenceRatio);
-        const largestMotion = this.largestRegionSize(motionMask, width, height);
-        motionScores.push(totalPixels > 0 && largestMotion >= 3 ? largestMotion / totalPixels : 0);
-        if (totalPixels > 0 && motionPixels / totalPixels > 0.30) extremeZonesCount++;
 
+        const activeAreaRatio = totalPixels > 0 ? movingPixels / totalPixels : 0;
+        const intensityRatio = totalPixels > 0 ? weightedMotion / totalPixels : 0;
+
+        // Syarat mutlak: minimal 6.5% luas bagian dalam gelembung harus mengalami gerakan nyata
+        // Jika kurang dari 6.5%, dianggap 0 (mengabaikan noise kamera / bayangan lewat)
+        let zoneScore = 0;
+        if (activeAreaRatio >= 0.065) {
+          zoneScore = Math.min(1, (intensityRatio - 0.03) / 0.14);
+          zoneScore = Math.max(0, zoneScore);
+        }
+
+        scores.push(zoneScore);
+        if (activeAreaRatio >= 0.09) activeZonesCount++;
       }
 
-      const isGlobalBodySpike = wholeFrameMoving || (zones.length >= 3 && extremeZonesCount >= 3);
+      // Cegah gerak seluruh tubuh / guncangan kamera / kedipan lampu auto-exposure
+      const isGlobalBodySpike = (zones.length >= 4 && activeZonesCount >= 3) || globalChangeRatio > 0.42;
       result.players[playerKey] = {
         scores,
-        motionScores,
         globalSpike: isGlobalBodySpike
       };
     }
 
-    // Latar mengikuti posisi tubuh baru; hanya zona yang sedang ditahan yang dibekukan.
-    const backgroundAlpha = 1 - Math.exp(-elapsedMs / 900);
-    for (let pixel = 0; pixel < foreground.length; pixel++) {
-      if (frozenBackground[pixel]) continue;
-      const i = pixel * 4;
-      for (let c = 0; c < 3; c++) bg[i + c] += (curr[i + c] - bgShift[c] - bg[i + c]) * backgroundAlpha;
-    }
-
     this.prevFrameData.set(curr);
     return result;
-  }
-
-  medianFrameShift(current, reference) {
-    const channels = [[], [], []];
-    for (let i = 0; i < current.length; i += 64) {
-      for (let c = 0; c < 3; c++) channels[c].push(current[i + c] - reference[i + c]);
-    }
-    return channels.map(values => {
-      values.sort((a, b) => a - b);
-      return values[Math.floor(values.length / 2)] || 0;
-    });
-  }
-
-  largestRegionSize(mask, width, height) {
-    const queue = new Int32Array(mask.length);
-    let largest = 0;
-    for (let start = 0; start < mask.length; start++) {
-      if (!mask[start]) continue;
-      let head = 0, tail = 1;
-      queue[0] = start;
-      mask[start] = 0;
-      while (head < tail) {
-        const index = queue[head++];
-        const x = index % width;
-        const y = Math.floor(index / width);
-        const neighbors = [x > 0 ? index - 1 : -1, x + 1 < width ? index + 1 : -1,
-          y > 0 ? index - width : -1, y + 1 < height ? index + width : -1,
-          x > 0 && y > 0 ? index - width - 1 : -1,
-          x + 1 < width && y > 0 ? index - width + 1 : -1,
-          x > 0 && y + 1 < height ? index + width - 1 : -1,
-          x + 1 < width && y + 1 < height ? index + width + 1 : -1];
-        for (const neighbor of neighbors) {
-          if (neighbor < 0 || !mask[neighbor]) continue;
-          mask[neighbor] = 0;
-          queue[tail++] = neighbor;
-        }
-      }
-      largest = Math.max(largest, tail);
-    }
-    return largest;
   }
 
   spawnParticles(x, y, color = "#FFB300") {
@@ -1534,16 +1452,15 @@ class EcosystemQuadrantGame {
     this.tourneyState = null;
     this.sessionHistory = [];
 
-    // Durasi tetap: gerakan kuat tidak mempercepat konfirmasi.
-    this.dwellDurationMs = 2000;
-    this.motionThreshold = 0.06;
-    this.dwellGraceMs = 250;
-    this.releaseDurationMs = 500;
-    this.cooldownMs = 1200;
+    // Waktu tahan gerakan aktif yang seimbang (650 ms) dan pelicin pendek (220 ms)
+    this.dwellDurationMs = 650;
+    this.microSmoothMs = 220;
+    this.cooldownMs = 850;
     this.readPhaseMs = 2000;
 
     this.pointerMap = new Map();
-    this.practiceSelection = this.createCameraSelection();
+    this.practiceDwell = 0;
+    this.practiceLastMotionAt = 0;
     this.practiceAutoTimer = null;
     this.lastFrameTime = performance.now();
 
@@ -1594,19 +1511,6 @@ class EcosystemQuadrantGame {
   }
 
   bindEvents() {
-    document.addEventListener("visibilitychange", () => {
-      if (document.hidden && this.state === "PLAYING") this.pauseGame();
-      if (document.hidden) this.practiceSelection = this.createCameraSelection();
-    });
-    document.getElementById("camera-sensitivity").addEventListener("change", (event) => {
-      const value = Number(event.target.value);
-      this.motionThreshold = [0.035, 0.06, 0.10].includes(value) ? value : 0.06;
-      this.practiceSelection = this.createCameraSelection();
-      this.players.forEach((p, idx) => {
-        Object.assign(p, this.createCameraSelection());
-        this.renderCameraProgress(p, idx);
-      });
-    });
     document.getElementById("btn-toggle-audio").addEventListener("click", () => {
       const muted = this.audio.toggleMute();
       document.getElementById("audio-icon").textContent = muted ? "🔇" : "🔊";
@@ -1771,13 +1675,13 @@ class EcosystemQuadrantGame {
       const p2Map = { "I": 0, "O": 1, "K": 2, "L": 3 };
 
       if (p1Map[key] !== undefined && this.players[0]) {
-        this.submitAnswer(0, p1Map[key]);
+        this.submitAnswer(0, p1Map[key], true);
       }
       if (p2Map[key] !== undefined) {
         if (this.players[1]) {
-          this.submitAnswer(1, p2Map[key]);
+          this.submitAnswer(1, p2Map[key], true);
         } else if (this.players[0]) {
-          this.submitAnswer(0, p2Map[key]);
+          this.submitAnswer(0, p2Map[key], true);
         }
       }
     });
@@ -1803,7 +1707,8 @@ class EcosystemQuadrantGame {
   async openCalibrationScreen() {
     this.state = "CALIB";
     this.showScreen("calibration-screen");
-    this.practiceSelection = this.createCameraSelection();
+    this.practiceDwell = 0;
+    this.practiceLastMotionAt = 0;
     document.getElementById("practice-progress").style.width = "0%";
 
     const modeTitles = {
@@ -1814,19 +1719,6 @@ class EcosystemQuadrantGame {
     };
     document.getElementById("calib-title").textContent = modeTitles[this.mode] || "Kalibrasi Kamera";
     await this.requestCameraAndUpdateUI();
-
-    this.clearPracticeTimer();
-    let secLeft = 12;
-    const timerLabel = document.getElementById("practice-timer-label");
-    this.practiceAutoTimer = setInterval(() => {
-      secLeft--;
-      if (secLeft > 0) {
-        timerLabel.textContent = `Latihan dapat dilewati (${secLeft} dtk)...`;
-      } else {
-        timerLabel.textContent = "Siap! Tekan tombol Mulai atau gerakkan tangan di Zona Uji.";
-        this.clearPracticeTimer();
-      }
-    }, 1000);
   }
 
   clearPracticeTimer() {
@@ -1841,7 +1733,6 @@ class EcosystemQuadrantGame {
     pill.textContent = "📷 Meminta izin kamera...";
     pill.className = "px-3 py-1.5 rounded-full text-xs font-bold bg-amber-700 text-white";
 
-    this.practiceSelection = this.createCameraSelection();
     const res = await this.detector.startCamera();
     if (res.ok) {
       pill.textContent = "✅ Kamera Aktif";
@@ -1890,7 +1781,7 @@ class EcosystemQuadrantGame {
         qIndex: 0,
         totalQ: baseQuestions.length,
         accuracy: comAccMap[this.difficulty] || 0.72,
-        nextActionAt: performance.now() + 6500,
+        nextActionAt: performance.now() + 7500,
         statusText: "Menganalisis..."
       };
     }
@@ -1925,10 +1816,12 @@ class EcosystemQuadrantGame {
       score: 0,
       correctCount: 0,
       finished: false,
-      ...this.createCameraSelection(),
-      cooldownUntil: now + 250,
+      dwellTarget: -1,
+      dwellProgress: 0,
+      lastZoneMotionAt: [0, 0, 0, 0],
+      cooldownUntil: now + 900,
       readPhaseUntil: now + this.readPhaseMs,
-      questionTimeLeft: 30.0, // Waktu ditingkatkan menjadi 30 detik per soal
+      questionTimeLeft: 30.0,
       feedbackBanner: null,
       feedbackUntil: 0,
       bubbles: anchorSeeds.map((seed, bIdx) => ({
@@ -1955,17 +1848,16 @@ class EcosystemQuadrantGame {
       vp.id = `viewport-p${idx}`;
       vp.className = "relative w-full h-full flex flex-col justify-between p-2 md:p-4 pointer-events-none";
 
-      // Ukuran teks pertanyaan diperbesar (text-sm sm:text-base md:text-lg)
       vp.innerHTML = `
-        <div class="w-full max-w-4xl mx-auto bg-slate-950/90 border-2 ${idx === 0 ? 'border-emerald-400' : 'border-amber-400'} rounded-2xl px-4 py-2.5 shadow-2xl z-10">
-          <div class="flex items-center justify-between text-xs md:text-sm font-extrabold mb-1">
+        <div class="w-full max-w-4xl mx-auto bg-slate-950/90 border-2 ${idx === 0 ? 'border-emerald-400' : 'border-amber-400'} rounded-2xl px-4 py-3 shadow-2xl z-10">
+          <div class="flex items-center justify-between text-xs md:text-sm font-extrabold mb-1.5">
             <span id="vp-qmeta-p${idx}" class="text-amber-300 uppercase">${p.name} • SOAL 1/${p.questions.length}</span>
             <div class="flex items-center gap-2">
-              <span id="vp-phase-p${idx}" class="px-2.5 py-0.5 rounded bg-sky-600 text-white">📖 FASE BACA (TIMER BERHENTI)</span>
-              <span id="vp-timer-p${idx}" class="font-mono text-base font-black text-emerald-300">30.0s</span>
+              <span id="vp-phase-p${idx}" class="px-2.5 py-0.5 rounded bg-sky-600 text-white">📖 FASE BACA (SENSOR AMAN)</span>
+              <span id="vp-timer-p${idx}" class="font-mono text-base md:text-lg font-black text-emerald-300">30.0s</span>
             </div>
           </div>
-          <p id="vp-qtext-p${idx}" class="text-sm sm:text-base md:text-lg font-extrabold text-white leading-snug">
+          <p id="vp-qtext-p${idx}" class="text-base sm:text-lg md:text-xl font-extrabold text-white leading-snug">
             Memuat pertanyaan ekosistem...
           </p>
         </div>
@@ -1992,7 +1884,7 @@ class EcosystemQuadrantGame {
                     ${labels[qIdx]}
                   </span>
                   <span class="text-[10px] md:text-xs font-bold text-emerald-100 bg-black/60 px-2 py-0.5 rounded-full border border-white/15">
-                    👋 Tangan / [${keyHint}]
+                    👋 Gerak / [${keyHint}]
                   </span>
                 </div>
                 <div id="quad-text-p${idx}-${qIdx}" class="my-1.5 text-xs sm:text-sm md:text-base font-extrabold text-amber-50 leading-snug text-center px-1">
@@ -2027,8 +1919,8 @@ class EcosystemQuadrantGame {
     const footerHint = document.getElementById("footer-control-hint");
     if (footerHint) {
       footerHint.textContent = this.posture === "seated"
-        ? "🪑 Mode Duduk: Tahan tangan 2 detik untuk memilih. Turunkan tangan setelah menjawab."
-        : "🧍 Mode Berdiri: Tahan tangan 2 detik untuk memilih. Turunkan tangan setelah menjawab.";
+        ? "🪑 Mode Duduk Aktif: Lambaikan tangan di dalam gelembung pilihanmu (~0,65 dtk) atau klik layar."
+        : "🧍 Mode Berdiri Aktif: Lambaikan tangan di dalam gelembung orbit luar (~0,65 dtk) atau klik layar.";
     }
   }
 
@@ -2036,11 +1928,11 @@ class EcosystemQuadrantGame {
     const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     const isSeated = this.posture === "seated";
     const anchors = isSeated
-      ? [{ x: 0.27, y: 0.32 }, { x: 0.73, y: 0.32 }, { x: 0.27, y: 0.68 }, { x: 0.73, y: 0.68 }]
-      : [{ x: 0.20, y: 0.24 }, { x: 0.80, y: 0.24 }, { x: 0.20, y: 0.76 }, { x: 0.80, y: 0.76 }];
+      ? [{ x: 0.26, y: 0.34 }, { x: 0.74, y: 0.34 }, { x: 0.26, y: 0.70 }, { x: 0.74, y: 0.70 }]
+      : [{ x: 0.20, y: 0.26 }, { x: 0.80, y: 0.26 }, { x: 0.20, y: 0.74 }, { x: 0.80, y: 0.74 }];
 
-    const orbitRadiusX = isSeated ? 0.045 : 0.065;
-    const orbitRadiusY = isSeated ? 0.055 : 0.080;
+    const orbitRadiusX = isSeated ? 0.032 : 0.048;
+    const orbitRadiusY = isSeated ? 0.038 : 0.055;
 
     this.players.forEach((p, pIdx) => {
       const wrapper = document.getElementById(`quad-wrapper-p${pIdx}`);
@@ -2054,10 +1946,10 @@ class EcosystemQuadrantGame {
 
         const bWidth = el.offsetWidth || 160;
         const bHeight = el.offsetHeight || 96;
-        const isDwellingThis = (p.dwellTarget === qIdx);
-        const speedFactor = prefersReduced ? 0 : (isDwellingThis ? 0.0 : 0.85);
+        const isDwellingThis = (p.dwellTarget === qIdx && p.dwellProgress > 0.08);
+        const speedFactor = prefersReduced ? 0 : (isDwellingThis ? 0.0 : 0.65);
 
-        b.phase += dt * 1.15 * speedFactor;
+        b.phase += dt * 0.95 * speedFactor;
         const anchor = anchors[qIdx];
         let targetX = anchor.x + Math.cos(b.phase + qIdx) * orbitRadiusX;
         let targetY = anchor.y + Math.sin(b.phase * 1.15 + qIdx) * orbitRadiusY;
@@ -2065,7 +1957,7 @@ class EcosystemQuadrantGame {
         const dxCenter = targetX - 0.5;
         const dyCenter = targetY - 0.5;
         const distCenter = Math.hypot(dxCenter, dyCenter);
-        const minSafeDist = isSeated ? 0.22 : 0.26;
+        const minSafeDist = isSeated ? 0.24 : 0.28;
         if (distCenter < minSafeDist && distCenter > 0.001) {
           const push = (minSafeDist - distCenter) / distCenter;
           targetX += dxCenter * push;
@@ -2073,8 +1965,8 @@ class EcosystemQuadrantGame {
         }
 
         if (!isDwellingThis) {
-          b.x += (targetX - b.x) * Math.min(1, dt * 5);
-          b.y += (targetY - b.y) * Math.min(1, dt * 5);
+          b.x += (targetX - b.x) * Math.min(1, dt * 4);
+          b.y += (targetY - b.y) * Math.min(1, dt * 4);
         }
 
         const halfWRatio = (bWidth / 2 + 8) / wRect.width;
@@ -2084,7 +1976,7 @@ class EcosystemQuadrantGame {
 
         const px = clampedX * wRect.width - bWidth / 2;
         const py = clampedY * wRect.height - bHeight / 2;
-        const scale = isDwellingThis ? 1.06 : 1.0;
+        const scale = isDwellingThis ? 1.05 : 1.0;
 
         el.style.transform = `translate3d(${px.toFixed(1)}px, ${py.toFixed(1)}px, 0) scale(${scale})`;
       });
@@ -2100,11 +1992,7 @@ class EcosystemQuadrantGame {
         e.preventDefault();
         e.stopPropagation();
         this.pointerMap.set(e.pointerId, { pIdx, qIdx });
-        const p = this.players[pIdx];
-        if (p && performance.now() >= p.cooldownUntil - 350) {
-          p.cooldownUntil = 0;
-        }
-        this.submitAnswer(pIdx, qIdx);
+        this.submitAnswer(pIdx, qIdx, true);
       });
 
       const cleanup = (e) => { this.pointerMap.delete(e.pointerId); };
@@ -2171,22 +2059,24 @@ class EcosystemQuadrantGame {
     }
   }
 
-  submitAnswer(playerIdx, quadIdx) {
+  submitAnswer(playerIdx, quadIdx, isManualClick = false) {
     const p = this.players[playerIdx];
     if (!p || p.finished || this.state !== "PLAYING") return;
 
     const now = performance.now();
-    if (now < p.cooldownUntil) return;
+    // Jika bukan klik manual/keyboard, hormati cooldown penuh
+    if (!isManualClick && now < p.cooldownUntil) return;
+    // Bahkan untuk klik manual, beri jeda minimal 250ms agar tidak double-click tak sengaja
+    if (isManualClick && now < p.cooldownUntil - (this.cooldownMs - 250)) return;
 
     const currentQ = p.questions[p.questionIndex];
     if (!currentQ) return;
 
     const isCorrect = quadIdx === currentQ.correctIndex;
     p.cooldownUntil = now + this.cooldownMs;
-    this.resetCameraDwell(p);
-    p.needsRelease = true;
-    p.quietSince = null;
-    this.renderCameraProgress(p, playerIdx);
+    p.dwellTarget = -1;
+    p.dwellProgress = 0;
+    p.lastZoneMotionAt = [0, 0, 0, 0];
 
     const cardEl = document.getElementById(`quad-p${playerIdx}-${quadIdx}`);
     if (cardEl) {
@@ -2223,7 +2113,7 @@ class EcosystemQuadrantGame {
       this.checkSessionCompletion();
     } else {
       p.readPhaseUntil = now + this.readPhaseMs;
-      p.questionTimeLeft = 30.0; // Reset ke 30 detik untuk soal berikutnya
+      p.questionTimeLeft = 30.0;
       this.refreshAllPlayerHUDs();
     }
   }
@@ -2256,12 +2146,6 @@ class EcosystemQuadrantGame {
 
   pauseGame() {
     if (this.state !== "PLAYING") return;
-    this.players.forEach((p, idx) => {
-      this.resetCameraDwell(p);
-      p.needsRelease = true;
-      p.quietSince = null;
-      this.renderCameraProgress(p, idx);
-    });
     this.state = "PAUSED";
     this.audio.stopMusic();
     document.getElementById("pause-modal").classList.remove("hidden");
@@ -2368,7 +2252,7 @@ class EcosystemQuadrantGame {
     this.detector.renderOverlay();
 
     if (this.state === "CALIB") {
-      this.updateCalibrationMotion(dt);
+      this.updateCalibrationMotion(dt, now);
     } else if (this.state === "PLAYING") {
       this.updateGameplayLoop(now, dt);
     }
@@ -2376,105 +2260,37 @@ class EcosystemQuadrantGame {
     requestAnimationFrame((t) => this.mainLoop(t));
   }
 
-  createCameraSelection() {
-    return { dwellTarget: -1, dwellProgress: 0, lastSeenAt: null,
-      needsRelease: false, quietSince: null };
-  }
-
-  resetCameraDwell(selection) {
-    selection.dwellTarget = -1;
-    selection.dwellProgress = 0;
-    selection.lastSeenAt = null;
-  }
-
-  updateCameraSelection(selection, motion, now, dt, enabled = true) {
-    if (!motion || motion.globalSpike) {
-      this.resetCameraDwell(selection);
-      selection.quietSince = null;
-      return -1;
-    }
-    const movement = motion.motionScores || [];
-    const entryThreshold = Math.max(0.015, this.motionThreshold * 0.5);
-    if (selection.needsRelease) {
-      this.resetCameraDwell(selection);
-      // Latar/tubuh yang diam tidak boleh mengunci sensor selamanya.
-      const quiet = movement.every(score => score < entryThreshold);
-      if (quiet) {
-        if (selection.quietSince === null) selection.quietSince = now;
-        if (now - selection.quietSince >= this.releaseDurationMs) selection.needsRelease = false;
-      } else {
-        selection.quietSince = null;
-      }
-      return -1;
-    }
-    if (!enabled) {
-      this.resetCameraDwell(selection);
-      return -1;
-    }
-
-    const current = selection.dwellTarget;
-    const gapMs = selection.lastSeenAt === null ? Infinity : now - selection.lastSeenAt;
-    const candidates = motion.scores
-      .map((score, index) => ({ score, index, movement: movement[index] || 0 }))
-      .filter(zone => zone.score >= this.motionThreshold && zone.movement >= entryThreshold)
-      .sort((a, b) => b.movement - a.movement);
-    const ambiguous = candidates.length > 1 && candidates[1].movement >= candidates[0].movement * 0.8;
-    if (ambiguous) {
-      this.resetCameraDwell(selection);
-      return -1;
-    }
-    const entering = candidates[0];
-    const holding = current !== -1 && gapMs <= this.dwellGraceMs &&
-      motion.scores[current] >= this.motionThreshold * 0.55;
-    if (holding && (!entering || entering.index === current)) {
-      selection.dwellProgress = Math.min(1, selection.dwellProgress +
-        Math.min(Math.max(0, dt * 1000), gapMs, 100) / this.dwellDurationMs);
-      selection.lastSeenAt = now;
-    } else if (entering) {
-      this.resetCameraDwell(selection);
-      selection.dwellTarget = entering.index;
-      selection.lastSeenAt = now;
-    } else {
-      if (gapMs > this.dwellGraceMs) this.resetCameraDwell(selection);
-      return -1;
-    }
-    if (selection.dwellProgress >= 1 - 1e-9) selection.dwellProgress = 1;
-    return selection.dwellProgress >= 1 ? selection.dwellTarget : -1;
-  }
-
-  renderCameraProgress(p, idx, globalSpike = false) {
-    for (let q = 0; q < 4; q++) {
-      const card = document.getElementById(`quad-p${idx}-${q}`);
-      const bar = document.getElementById(`quad-bar-p${idx}-${q}`);
-      if (!card || !bar) continue;
-      const active = p.dwellTarget === q && p.dwellProgress > 0;
-      card.classList.toggle("global-spike-warn", globalSpike);
-      card.classList.toggle("active-dwell", active);
-      bar.style.width = active ? `${Math.min(100, p.dwellProgress * 100)}%` : "0%";
-    }
-  }
-
-  updateCalibrationMotion(dt) {
+  updateCalibrationMotion(dt, now) {
     const targetEl = document.getElementById("practice-target");
     if (!targetEl) return;
-    const analysis = this.detector.analyzeZones({ calib: [targetEl.getBoundingClientRect()] },
-      { calib: this.practiceSelection.dwellTarget });
-    const chosen = this.updateCameraSelection(this.practiceSelection,
-      analysis.cameraActive ? analysis.players.calib : null, performance.now(), dt);
-    document.getElementById("practice-progress").style.width =
-      `${this.practiceSelection.dwellProgress * 100}%`;
-    targetEl.classList.toggle("active-dwell", this.practiceSelection.dwellProgress > 0);
-    const hint = document.getElementById("practice-sensor-status");
-    if (hint) hint.textContent = !analysis.cameraActive
-      ? "Kamera belum siap. Coba Muat Ulang Kamera."
-      : this.practiceSelection.dwellTarget !== -1
-        ? "Tangan terbaca! Tahan sampai bar penuh."
-        : "Gerakkan tangan masuk ke gelembung uji.";
-    if (chosen !== -1) {
-      this.practiceSelection = this.createCameraSelection();
-      this.audio.playSfx("correct");
-      this.clearPracticeTimer();
-      this.startConfiguredSession();
+    const rect = targetEl.getBoundingClientRect();
+    const analysis = this.detector.analyzeZones({ calib: [rect] });
+
+    if (analysis.cameraActive && analysis.players.calib && !analysis.players.calib.globalSpike) {
+      const score = analysis.players.calib.scores[0] || 0;
+      if (score >= 0.20) {
+        this.practiceLastMotionAt = now;
+        const fillBoost = Math.min(1.5, 0.85 + score * 0.7);
+        this.practiceDwell += dt * 1000 * fillBoost;
+      } else if (this.practiceDwell > 160 && (now - this.practiceLastMotionAt) < this.microSmoothMs) {
+        // Jendela pelicin singkat (220ms) hanya bila bar sudah terisi cukup jauh
+        this.practiceDwell += dt * 500;
+      } else {
+        this.practiceDwell = Math.max(0, this.practiceDwell - dt * 650);
+      }
+
+      const pct = Math.min(100, (this.practiceDwell / this.dwellDurationMs) * 100);
+      document.getElementById("practice-progress").style.width = `${pct}%`;
+      if (this.practiceDwell >= this.dwellDurationMs) {
+        this.practiceDwell = 0;
+        this.audio.playSfx("correct");
+        this.clearPracticeTimer();
+        this.startConfiguredSession();
+      }
+    } else {
+      this.practiceDwell = Math.max(0, this.practiceDwell - dt * 650);
+      const pct = Math.min(100, (this.practiceDwell / this.dwellDurationMs) * 100);
+      document.getElementById("practice-progress").style.width = `${pct}%`;
     }
   }
 
@@ -2492,11 +2308,7 @@ class EcosystemQuadrantGame {
       if (rects.length === 4) zoneRectsByPlayer[idx] = rects;
     });
 
-    const lockedTargets = {};
-    this.players.forEach((p, idx) => {
-      if (!p.finished && now >= p.readPhaseUntil && now >= p.cooldownUntil) lockedTargets[idx] = p.dwellTarget;
-    });
-    const motionResult = this.detector.analyzeZones(zoneRectsByPlayer, lockedTargets);
+    const motionResult = this.detector.analyzeZones(zoneRectsByPlayer);
     const lightEl = document.getElementById("lighting-indicator");
     if (lightEl) {
       if (!motionResult.cameraActive) {
@@ -2528,37 +2340,103 @@ class EcosystemQuadrantGame {
       const isReadingPhase = now < p.readPhaseUntil;
       if (isReadingPhase) {
         if (phaseEl) {
-          phaseEl.textContent = "📖 FASE BACA (TIMER AMAN)";
-          phaseEl.className = "px-2 py-0.5 rounded bg-sky-600 text-white";
+          phaseEl.textContent = "📖 FASE BACA (SENSOR AMAN)";
+          phaseEl.className = "px-2.5 py-0.5 rounded bg-sky-600 text-white";
         }
+        // Selama 2 detik Fase Baca awal soal baru, sensor kamera tidak mengisi sendiri
+        p.dwellProgress = 0;
+        p.dwellTarget = -1;
       } else {
         if (phaseEl) {
-          phaseEl.textContent = "🫧 TAHAN TANGAN DI GELEMBUNG!";
-          phaseEl.className = "px-2 py-0.5 rounded bg-emerald-600 text-white";
+          phaseEl.textContent = "👋 GERAKKAN TANGAN DI GELEMBUNG!";
+          phaseEl.className = "px-2.5 py-0.5 rounded bg-emerald-600 text-white";
         }
         p.questionTimeLeft = Math.max(0, p.questionTimeLeft - dt);
         if (timerEl) timerEl.textContent = `${p.questionTimeLeft.toFixed(1)}s`;
 
         if (p.questionTimeLeft <= 0) {
-          this.submitAnswer(idx, -1);
+          this.submitAnswer(idx, -1, false);
           return;
         }
       }
 
       const pMotion = motionResult.players[idx];
-      if (pMotion?.globalSpike) anyGlobalSpike = true;
-      const chosen = this.updateCameraSelection(p,
-        motionResult.cameraActive ? pMotion : null, now, dt,
-        !isReadingPhase && now >= p.cooldownUntil);
-      if (!isReadingPhase && p.needsRelease && phaseEl) {
-        phaseEl.textContent = "🖐️ TARIK TANGAN, LALU ARAHKAN LAGI";
-      } else if (!isReadingPhase && phaseEl) {
-        phaseEl.textContent = p.dwellTarget === -1 ? "🖐️ GERAKKAN TANGAN KE JAWABAN" : "🫧 TANGAN TERBACA — TAHAN 2 DETIK";
+      // Sensor gerak hanya mengisi setelah Fase Baca (2 detik) dan setelah Cooldown selesai
+      if (!isReadingPhase && pMotion && now >= p.cooldownUntil) {
+        if (pMotion.globalSpike) {
+          anyGlobalSpike = true;
+          p.dwellProgress = Math.max(0, p.dwellProgress - dt * 1.4);
+          if (p.dwellProgress === 0) p.dwellTarget = -1;
+        } else {
+          // Cari gelembung dengan gerakan aktif terkuat yang melewati ambang batas nyata (0.20)
+          // DAN harus jelas lebih unggul dibanding gelembung lainnya (dominance margin)
+          let bestQuad = -1;
+          let bestScore = 0;
+          let secondBestScore = 0;
+
+          for (let q = 0; q < 4; q++) {
+            const sc = pMotion.scores[q] || 0;
+            if (sc > bestScore) {
+              secondBestScore = bestScore;
+              bestScore = sc;
+              bestQuad = q;
+            } else if (sc > secondBestScore) {
+              secondBestScore = sc;
+            }
+          }
+
+          const hasClearDominantHandMotion = bestScore >= 0.20 && (bestScore - secondBestScore) >= 0.08;
+
+          if (hasClearDominantHandMotion) {
+            p.lastZoneMotionAt[bestQuad] = now;
+            const fillMultiplier = Math.min(1.45, 0.85 + bestScore * 0.65);
+            const step = ((dt * 1000) / this.dwellDurationMs) * fillMultiplier;
+
+            if (p.dwellTarget === bestQuad) {
+              p.dwellProgress += step;
+            } else {
+              // Jika berpindah target, mulai dari awal tanpa loncatan instan
+              p.dwellTarget = bestQuad;
+              p.dwellProgress = step;
+            }
+
+            if (p.dwellProgress >= 1.0) {
+              this.submitAnswer(idx, p.dwellTarget, false);
+              return;
+            }
+          } else {
+            // Pelicin mikro singkat (220 ms) HANYA jika bar sudah diisi oleh gerakan tangan > 28%
+            const activeTarget = p.dwellTarget;
+            const sinceMotion = activeTarget !== -1 ? (now - (p.lastZoneMotionAt[activeTarget] || 0)) : 9999;
+
+            if (activeTarget !== -1 && p.dwellProgress > 0.28 && sinceMotion < this.microSmoothMs) {
+              p.dwellProgress += ((dt * 1000) / this.dwellDurationMs) * 0.55;
+              if (p.dwellProgress >= 1.0) {
+                this.submitAnswer(idx, activeTarget, false);
+                return;
+              }
+            } else {
+              // Jika tidak ada gerakan tangan nyata, kurangi bar dengan cepat ke 0%
+              p.dwellProgress = Math.max(0, p.dwellProgress - dt * 1.35);
+              if (p.dwellProgress === 0) p.dwellTarget = -1;
+            }
+          }
+        }
       }
-      this.renderCameraProgress(p, idx, Boolean(pMotion?.globalSpike));
-      if (chosen !== -1) {
-        this.submitAnswer(idx, chosen);
-        return;
+
+      for (let q = 0; q < 4; q++) {
+        const cardEl = document.getElementById(`quad-p${idx}-${q}`);
+        const barEl = document.getElementById(`quad-bar-p${idx}-${q}`);
+        if (!cardEl || !barEl) continue;
+
+        cardEl.classList.toggle("global-spike-warn", Boolean(pMotion?.globalSpike));
+        if (p.dwellTarget === q && p.dwellProgress > 0) {
+          cardEl.classList.add("active-dwell");
+          barEl.style.width = `${Math.min(100, p.dwellProgress * 100)}%`;
+        } else {
+          cardEl.classList.remove("active-dwell");
+          barEl.style.width = "0%";
+        }
       }
     });
 
@@ -2581,7 +2459,7 @@ class EcosystemQuadrantGame {
             : `COM meleset pada Soal ${this.comState.qIndex}/${this.comState.totalQ}`;
         }
         document.getElementById("hud-p2-score").textContent = `${this.comState.score} Poin`;
-        this.comState.nextActionAt = now + 5200 + Math.random() * 1800;
+        this.comState.nextActionAt = now + 6500 + Math.random() * 2000;
       }
     }
   }
