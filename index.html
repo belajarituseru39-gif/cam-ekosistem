@@ -1258,6 +1258,8 @@ class PalmOnlyDetector {
     this.stream = null;
 
     this.detectedPalms = [];
+    this.persistedPalms = [];
+    this.palmPersistenceMs = 340; // Menjaga kursor telapak tangan tetap stabil saat menahan bar
     this.lastVideoTime = -1;
     this.particles = [];
   }
@@ -1279,7 +1281,7 @@ class PalmOnlyDetector {
         visionFileset = await FilesetResolver.forVisionTasks("asset/wasm");
       }
 
-      // Memuat model HandLandmarker khusus telapak tangan (hingga 4 tangan untuk Duel/Kooperatif)
+      // Memuat model HandLandmarker khusus telapak tangan (ambang responsif agar tidak putus saat tangan diam menahan)
       this.handLandmarker = await HandLandmarker.createFromOptions(visionFileset, {
         baseOptions: {
           modelAssetPath: "https://storage.googleapis.com/mediapipe-models/hand_landmarker/hand_landmarker/float16/1/hand_landmarker.task",
@@ -1287,9 +1289,9 @@ class PalmOnlyDetector {
         },
         runningMode: "VIDEO",
         numHands: 4,
-        minHandDetectionConfidence: 0.65,
-        minHandPresenceConfidence: 0.65,
-        minTrackingConfidence: 0.60
+        minHandDetectionConfidence: 0.45,
+        minHandPresenceConfidence: 0.45,
+        minTrackingConfidence: 0.40
       });
 
       this.modelReady = true;
@@ -1359,20 +1361,15 @@ class PalmOnlyDetector {
     const indexMcp = landmarks[5];
     const middleMcp = landmarks[9];
     const pinkyMcp = landmarks[17];
-    const middleTip = landmarks[12];
 
     // Ukuran telapak tangan (jarak pergelangan ke pangkal jari tengah)
     const palmLength = Math.hypot(middleMcp.x - wrist.x, middleMcp.y - wrist.y);
     // Lebar telapak tangan (jarak pangkal telunjuk ke pangkal kelingking)
     const palmWidth = Math.hypot(indexMcp.x - pinkyMcp.x, indexMcp.y - pinkyMcp.y);
-    // Panjang total tangan sampai ujung jari tengah
-    const fullHandSpan = Math.hypot(middleTip.x - wrist.x, middleTip.y - wrist.y);
 
-    // Filter ukuran wajar di kamera (tidak terlalu mikroskopis dan bukan noise layar penuh)
-    if (palmLength < 0.025 || palmLength > 0.48) return false;
-    if (palmWidth < 0.020 || palmWidth > 0.45) return false;
-    // Pastikan jari tidak terlipat ekstrem menyerupai gumpalan acak
-    if (fullHandSpan < palmLength * 1.15) return false;
+    // Filter ukuran longgar agar saat telapak tangan miring atau jari rileks tetap terbaca penuh
+    if (palmLength < 0.015 || palmLength > 0.65) return false;
+    if (palmWidth < 0.012 || palmWidth > 0.65) return false;
 
     return true;
   }
@@ -1389,47 +1386,82 @@ class PalmOnlyDetector {
       try {
         const results = this.handLandmarker.detectForVideo(this.video, nowMs);
         const box = this.getVideoDisplayBox();
-        const palms = [];
+        const rawPalms = [];
 
         if (results && results.landmarks) {
           for (let i = 0; i < results.landmarks.length; i++) {
             const lm = results.landmarks[i];
             if (!this.isValidPalmGeometry(lm)) continue;
 
-            // Hitung titik pusat telapak tangan (rata-rata pergelangan [0] & pangkal 4 jari [5, 9, 13, 17] + ujung telunjuk [8])
-            const palmCenterNormX = (lm[0].x + lm[5].x + lm[9].x + lm[13].x + lm[17].x + lm[8].x) / 6;
-            const palmCenterNormY = (lm[0].y + lm[5].y + lm[9].y + lm[13].y + lm[17].y + lm[8].y) / 6;
+            // Hitung titik pusat telapak tangan & jari tengah
+            const palmCenterNormX = (lm[0].x + lm[5].x + lm[9].x + lm[13].x + lm[17].x + lm[8].x + lm[12].x) / 7;
+            const palmCenterNormY = (lm[0].y + lm[5].y + lm[9].y + lm[13].y + lm[17].y + lm[8].y + lm[12].y) / 7;
 
             // Karena video di-mirror (scaleX(-1)), koordinat X layar dibalik (1 - normX)
             const screenX = box.offsetX + (1 - palmCenterNormX) * box.renderW;
             const screenY = box.offsetY + palmCenterNormY * box.renderH;
 
-            // Simpan juga titik ujung jari untuk visualisasi kerangka telapak tangan
+            // Simpan titik sendi jari untuk visualisasi kerangka telapak tangan
             const screenLandmarks = lm.map(pt => ({
               x: box.offsetX + (1 - pt.x) * box.renderW,
               y: box.offsetY + pt.y * box.renderH
             }));
 
-            // Radius telapak tangan di layar
+            // Radius kursor telapak tangan di layar (minimal 34px agar mudah mengenai gelembung)
             const wristScreen = screenLandmarks[0];
             const middleMcpScreen = screenLandmarks[9];
-            const palmRadiusPx = Math.max(24, Math.min(72, Math.hypot(middleMcpScreen.x - wristScreen.x, middleMcpScreen.y - wristScreen.y) * 0.85));
+            const palmRadiusPx = Math.max(34, Math.min(80, Math.hypot(middleMcpScreen.x - wristScreen.x, middleMcpScreen.y - wristScreen.y) * 0.95));
 
-            palms.push({
-              x: screenX,
-              y: screenY,
-              radius: palmRadiusPx,
-              landmarks: screenLandmarks
-            });
+            // Gabungkan jika MediaPipe mendeteksi tangan fisik yang sama dua kali (Left & Right overlap)
+            const duplicate = rawPalms.find(p => Math.hypot(p.x - screenX, p.y - screenY) < palmRadiusPx * 0.8);
+            if (!duplicate) {
+              rawPalms.push({
+                x: screenX,
+                y: screenY,
+                radius: palmRadiusPx,
+                landmarks: screenLandmarks,
+                lastSeen: nowMs
+              });
+            }
           }
         }
-        this.detectedPalms = palms;
+
+        // Terapkan penghalusan posisi (EMA smoothing) & memori persistensi agar tidak putus saat tangan diam menahan
+        if (rawPalms.length > 0) {
+          this.persistedPalms = rawPalms.map(newP => {
+            const prev = this.persistedPalms.find(oldP => Math.hypot(oldP.x - newP.x, oldP.y - newP.y) < 120);
+            if (prev) {
+              const alpha = 0.65;
+              return {
+                x: prev.x * (1 - alpha) + newP.x * alpha,
+                y: prev.y * (1 - alpha) + newP.y * alpha,
+                radius: prev.radius * (1 - alpha) + newP.radius * alpha,
+                landmarks: newP.landmarks,
+                lastSeen: nowMs
+              };
+            }
+            return newP;
+          });
+        } else {
+          // Pertahankan posisi telapak tangan terakhir selama palmPersistenceMs (340 ms) jika kamera berkedip
+          this.persistedPalms = this.persistedPalms.filter(p => (nowMs - p.lastSeen) <= this.palmPersistenceMs);
+        }
+
+        this.detectedPalms = this.persistedPalms;
       } catch (e) {
-        this.detectedPalms = [];
+        this.detectedPalms = this.persistedPalms.filter(p => (nowMs - p.lastSeen) <= this.palmPersistenceMs);
       }
     }
 
     return this.detectedPalms;
+  }
+
+  // Cek apakah lingkaran kursor telapak tangan atau titik jari bersinggungan dengan kotak gelembung
+  circleIntersectsRect(cx, cy, radius, rect) {
+    const closestX = Math.max(rect.left, Math.min(cx, rect.right));
+    const closestY = Math.max(rect.top, Math.min(cy, rect.bottom));
+    const dist = Math.hypot(cx - closestX, cy - closestY);
+    return { hit: dist <= radius, dist };
   }
 
   analyzeZones(zoneRectsByPlayer) {
@@ -1455,47 +1487,57 @@ class PalmOnlyDetector {
         return palm.x >= screenW * 0.5;
       });
 
-      const scores = [];
-      let hitZonesCount = 0;
+      const scores = new Array(zones.length).fill(0);
+      let bestZoneIdx = -1;
+      let bestZoneDist = Infinity;
 
       for (let z = 0; z < zones.length; z++) {
         const rect = zones[z];
-        let zoneHitScore = 0;
+        const rectCenterX = (rect.left + rect.right) / 2;
+        const rectCenterY = (rect.top + rect.bottom) / 2;
 
         for (const palm of playerPalms) {
-          // Cek apakah pusat telapak tangan atau jari telunjuk berada di dalam area gelembung
-          const indexTip = palm.landmarks[8];
-          const middleTip = palm.landmarks[12];
+          // 1. Cek perpotongan seluruh lingkaran kursor telapak tangan (🖐️) + toleransi 18px dengan kotak gelembung
+          const circleCheck = this.circleIntersectsRect(palm.x, palm.y, palm.radius + 18, rect);
+          let isHit = circleCheck.hit;
 
-          const pointsToCheck = [
-            { x: palm.x, y: palm.y, weight: 1.0 },
-            { x: indexTip.x, y: indexTip.y, weight: 0.9 },
-            { x: middleTip.x, y: middleTip.y, weight: 0.9 }
-          ];
+          // 2. Cek juga apakah salah satu ujung jari atau buku jari menyentuh gelembung
+          if (!isHit && palm.landmarks) {
+            const keyIndices = [0, 4, 5, 8, 9, 12, 13, 16, 17, 20];
+            for (const kIdx of keyIndices) {
+              const pt = palm.landmarks[kIdx];
+              if (
+                pt &&
+                pt.x >= rect.left - 18 &&
+                pt.x <= rect.right + 18 &&
+                pt.y >= rect.top - 18 &&
+                pt.y <= rect.bottom + 18
+              ) {
+                isHit = true;
+                break;
+              }
+            }
+          }
 
-          for (const pt of pointsToCheck) {
-            const margin = 10; // Toleransi sentuhan tepi gelembung dalam piksel
-            if (
-              pt.x >= rect.left - margin &&
-              pt.x <= rect.right + margin &&
-              pt.y >= rect.top - margin &&
-              pt.y <= rect.bottom + margin
-            ) {
-              zoneHitScore = Math.max(zoneHitScore, pt.weight);
+          if (isHit) {
+            const distToBubbleCenter = Math.hypot(palm.x - rectCenterX, palm.y - rectCenterY);
+            if (distToBubbleCenter < bestZoneDist) {
+              bestZoneDist = distToBubbleCenter;
+              bestZoneIdx = z;
             }
           }
         }
-
-        scores.push(zoneHitScore);
-        if (zoneHitScore > 0.5) hitZonesCount++;
       }
 
-      // Cegah jika pemain merentangkan kedua tangan untuk menyentuh banyak gelembung sekaligus
-      const isMultiZoneConflict = hitZonesCount >= 2;
+      // Aktifkan penuh (1.0) pada gelembung terdekat yang disentuh telapak tangan tanpa gagal karena konflik zona
+      if (bestZoneIdx !== -1) {
+        scores[bestZoneIdx] = 1.0;
+      }
+
       result.players[playerKey] = {
         scores,
         palmDetected: playerPalms.length > 0,
-        globalSpike: isMultiZoneConflict
+        globalSpike: false
       };
     }
 
@@ -1611,11 +1653,11 @@ class EcosystemQuadrantGame {
     this.tourneyState = null;
     this.sessionHistory = [];
 
-    // Waktu tahan telapak tangan di dalam gelembung (550 ms)
-    this.dwellDurationMs = 550;
-    this.microSmoothMs = 150;
-    this.cooldownMs = 850;
-    this.readPhaseMs = 2000;
+    // Waktu tahan telapak tangan di dalam gelembung dipercepat & dilengkapi Sticky Hold Grace agar pasti penuh 100%
+    this.dwellDurationMs = 360;
+    this.dwellHoldGraceMs = 300;
+    this.cooldownMs = 750;
+    this.readPhaseMs = 1500;
 
     this.pointerMap = new Map();
     this.practiceDwell = 0;
@@ -2108,8 +2150,9 @@ class EcosystemQuadrantGame {
 
         const bWidth = el.offsetWidth || 160;
         const bHeight = el.offsetHeight || 96;
-        const isDwellingThis = (p.dwellTarget === qIdx && p.dwellProgress > 0.08);
-        const speedFactor = prefersReduced ? 0 : (isDwellingThis ? 0.0 : 0.65);
+        // Begitu telapak tangan menyentuh gelembung (dwellProgress > 0), kunci posisi gelembung agar tidak bergeser menjauh
+        const isDwellingThis = (p.dwellTarget === qIdx && p.dwellProgress > 0);
+        const speedFactor = prefersReduced ? 0 : (isDwellingThis ? 0.0 : 0.55);
 
         b.phase += dt * 0.95 * speedFactor;
         const anchor = anchors[qIdx];
@@ -2433,8 +2476,11 @@ class EcosystemQuadrantGame {
       if (score >= 0.5) {
         this.practiceLastMotionAt = now;
         this.practiceDwell += dt * 1000;
+      } else if (now - this.practiceLastMotionAt <= this.dwellHoldGraceMs && this.practiceDwell > 0) {
+        // Jaga bar tetap naik/stabil selama masa toleransi singkat agar tidak turun saat hampir penuh
+        this.practiceDwell += dt * 650;
       } else {
-        this.practiceDwell = Math.max(0, this.practiceDwell - dt * 900);
+        this.practiceDwell = Math.max(0, this.practiceDwell - dt * 450);
       }
 
       const pct = Math.min(100, (this.practiceDwell / this.dwellDurationMs) * 100);
@@ -2446,7 +2492,7 @@ class EcosystemQuadrantGame {
         this.startConfiguredSession();
       }
     } else {
-      this.practiceDwell = Math.max(0, this.practiceDwell - dt * 900);
+      this.practiceDwell = Math.max(0, this.practiceDwell - dt * 450);
       const pct = Math.min(100, (this.practiceDwell / this.dwellDurationMs) * 100);
       document.getElementById("practice-progress").style.width = `${pct}%`;
     }
@@ -2520,39 +2566,44 @@ class EcosystemQuadrantGame {
       const pMotion = motionResult.players[idx];
       // Sensor hanya mengisi jika ada TELAPAK TANGAN ASLI di dalam gelembung setelah Fase Baca selesai
       if (!isReadingPhase && pMotion && now >= p.cooldownUntil) {
-        if (pMotion.globalSpike) {
-          anyMultiZoneConflict = true;
-          p.dwellProgress = Math.max(0, p.dwellProgress - dt * 1.8);
-          if (p.dwellProgress === 0) p.dwellTarget = -1;
-        } else {
-          let hoveredQuad = -1;
-          for (let q = 0; q < 4; q++) {
-            if ((pMotion.scores[q] || 0) >= 0.5) {
-              hoveredQuad = q;
-              break;
-            }
+        let hoveredQuad = -1;
+        for (let q = 0; q < 4; q++) {
+          if ((pMotion.scores[q] || 0) >= 0.5) {
+            hoveredQuad = q;
+            break;
           }
+        }
 
-          if (hoveredQuad !== -1) {
-            p.lastZoneMotionAt[hoveredQuad] = now;
-            const step = (dt * 1000) / this.dwellDurationMs;
+        if (hoveredQuad !== -1) {
+          p.lastZoneMotionAt[hoveredQuad] = now;
+          const step = (dt * 1000) / this.dwellDurationMs;
 
-            if (p.dwellTarget === hoveredQuad) {
-              p.dwellProgress += step;
-            } else {
-              p.dwellTarget = hoveredQuad;
-              p.dwellProgress = step;
-            }
-
-            if (p.dwellProgress >= 1.0) {
-              this.submitAnswer(idx, p.dwellTarget, false);
-              return;
-            }
+          if (p.dwellTarget === hoveredQuad) {
+            p.dwellProgress += step;
           } else {
-            // Jika telapak tangan keluar dari gelembung, bar langsung turun kembali ke 0
-            p.dwellProgress = Math.max(0, p.dwellProgress - dt * 1.8);
-            if (p.dwellProgress === 0) p.dwellTarget = -1;
+            p.dwellTarget = hoveredQuad;
+            p.dwellProgress = step;
           }
+
+          if (p.dwellProgress >= 1.0) {
+            this.submitAnswer(idx, p.dwellTarget, false);
+            return;
+          }
+        } else if (
+          p.dwellTarget !== -1 &&
+          p.dwellProgress > 0 &&
+          (now - (p.lastZoneMotionAt[p.dwellTarget] || 0)) <= this.dwellHoldGraceMs
+        ) {
+          // Sticky Hold Grace: Jika tangan sedikit bergoyang di tepi gelembung saat bar sedang naik, teruskan pengisian
+          p.dwellProgress += ((dt * 1000) / this.dwellDurationMs) * 0.75;
+          if (p.dwellProgress >= 1.0) {
+            this.submitAnswer(idx, p.dwellTarget, false);
+            return;
+          }
+        } else {
+          // Jika telapak tangan benar-benar ditarik keluar dari gelembung, turunkan bar secara halus
+          p.dwellProgress = Math.max(0, p.dwellProgress - dt * 0.85);
+          if (p.dwellProgress === 0) p.dwellTarget = -1;
         }
       }
 
