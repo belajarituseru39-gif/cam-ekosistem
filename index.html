@@ -264,10 +264,10 @@
         <div class="mt-4 grid grid-cols-1 md:grid-cols-2 gap-4 items-center">
           <div class="space-y-2 text-sm md:text-base">
             <p id="calib-desc" class="text-emerald-100 leading-relaxed">
-              Posisikan wajah di area tengah layar, lalu arahkan tangan ke atas <strong>Gelembung Uji Mengambang</strong> hingga cincin hijau penuh otomatis!
+              Posisikan wajah di area tengah layar, lalu arahkan tangan ke atas <strong>Gelembung Uji Mengambang</strong> dan tahan sekitar 1,5 detik hingga bar hijau penuh.
             </p>
             <ul class="text-xs md:text-sm space-y-1.5 text-amber-100 bg-black/40 p-3 rounded-xl border border-white/10">
-              <li>✅ <strong>Auto-Full Saat Tangan Masuk:</strong> Begitu tangan menyentuh area gelembung, bar hijau langsung mengunci dan terisi penuh otomatis (~0,22 detik) tanpa perlu menggoyangkan tangan terus-menerus.</li>
+              <li>✅ <strong>Tahan untuk Memilih:</strong> Arahkan satu tangan ke gelembung selama sekitar 1,5 detik. Bar hanya bertambah selama area tersebut terdeteksi aktif. Tarik tangan untuk membatalkan atau sebelum memilih jawaban berikutnya.</li>
               <li>🪑 <strong>Mode Duduk Aktif:</strong> Orbit gelembung ditarik lebih dekat ke jangkauan tangan sambil duduk santai.</li>
               <li>⌨️ <strong>Tanpa Kamera?</strong> Klik/Sentuh langsung gelembung untuk memilih seketika tanpa menunggu loading!</li>
             </ul>
@@ -282,7 +282,7 @@
               <div class="w-4/5 h-3 bg-slate-800 rounded-full mt-3 overflow-hidden border border-white/20">
                 <div id="practice-progress" class="h-full bg-emerald-400 transition-all duration-75" style="width: 0%;"></div>
               </div>
-              <span id="practice-timer-label" class="text-xs text-emerald-200 mt-2">Latihan otomatis lanjut dalam 12 dtk...</span>
+              <span id="practice-timer-label" class="text-xs text-emerald-200 mt-2">Tahan tangan 1,5 detik atau klik untuk mulai.</span>
             </div>
           </div>
         </div>
@@ -304,34 +304,34 @@
     </section>
 
     <!-- ================= 3. HUD & ARENA BERMAIN UTAMA (90-100% KAMERA) ================= -->
-    <section id="gameplay-screen" class="hidden w-full h-full flex flex-col justify-between pointer-events-none">
+<section id="gameplay-screen" class="hidden w-full h-full flex flex-col justify-between pointer-events-none">
       
       <!-- HUD ATAS RINGKAS (Maks 10-12% Tinggi Layar) -->
-      <header class="interactive-el w-full bg-slate-950/80 backdrop-blur-md border-b border-white/20 px-3 py-1.5 flex items-center justify-between gap-2 z-20" style="min-height: 54px; max-height: 12dvh;">
+      <header class="interactive-el w-full bg-slate-950/85 backdrop-blur-md border-b border-white/20 px-3 py-2 flex items-center justify-between gap-2 z-20" style="min-height: 56px; max-height: 14dvh;">
         <!-- Info Kiri: Mode & Pemain 1 -->
         <div class="flex items-center gap-2 md:gap-3">
-          <div class="flex items-center gap-1.5 bg-emerald-900/90 border border-emerald-400 px-2.5 py-1 rounded-lg">
+          <div class="flex items-center gap-1.5 bg-emerald-900/90 border border-emerald-400 px-3 py-1.5 rounded-xl">
             <span class="text-xs md:text-sm font-black text-emerald-300" id="hud-p1-name">P1: Raka</span>
             <span class="text-sm md:text-base font-black text-amber-300" id="hud-p1-score">0</span>
           </div>
-          <div id="hud-p1-qcount" class="text-xs font-bold bg-black/50 px-2 py-1 rounded text-emerald-100">
+          <div id="hud-p1-qcount" class="text-xs font-bold bg-black/60 px-2.5 py-1.5 rounded-xl text-emerald-100 border border-white/10">
             Soal 1/8
           </div>
         </div>
 
         <!-- Info Tengah: Indikator Status Detektor & Fase -->
         <div class="flex items-center gap-2 text-center">
-          <span id="detector-badge" class="px-2.5 py-1 rounded-full text-xs font-extrabold bg-emerald-700 text-white border border-emerald-300">
-            🫧 Detektor Tangan Gelembung Aktif
+          <span id="detector-badge" class="px-3 py-1.5 rounded-full text-xs font-extrabold bg-emerald-700 text-white border border-emerald-300">
+            🫧 Detektor Seimbang Aktif
           </span>
-          <span id="global-motion-alert" class="hidden px-2.5 py-1 rounded-full text-xs font-extrabold bg-red-600 text-white animate-bounce">
-            ⚠️ Gerak Tubuh Penuh! Gunakan 1 Tangan
+          <span id="global-motion-alert" class="hidden px-3 py-1.5 rounded-full text-xs font-extrabold bg-red-600 text-white animate-bounce">
+            ⚠️ Gerakan Terlalu Luas! Fokus 1 Tangan
           </span>
         </div>
 
         <!-- Info Kanan: Lawan/COM/P2 & Kontrol Jeda -->
         <div class="flex items-center gap-2">
-          <div id="hud-p2-box" class="flex items-center gap-1.5 bg-amber-900/90 border border-amber-400 px-2.5 py-1 rounded-lg">
+          <div id="hud-p2-box" class="flex items-center gap-1.5 bg-amber-900/90 border border-amber-400 px-3 py-1.5 rounded-xl">
             <span class="text-xs md:text-sm font-black text-amber-200" id="hud-p2-name">COM: Arka</span>
             <span class="text-sm md:text-base font-black text-white" id="hud-p2-score">0</span>
           </div>
@@ -343,12 +343,12 @@
 
       <!-- AREA ARENA TENGAH (80%+ Layar Kamera Bersih) -->
       <main id="arena-playfield" class="relative flex-1 w-full h-full flex overflow-hidden">
-        <!-- Akan dirender dinamis oleh JS: Mode 1 Viewport (Solo/Coop/4P) atau Mode 2 Viewport Serentak (Kiri P1 / Kanan P2) -->
+        <!-- Akan dirender dinamis oleh JS -->
       </main>
 
       <!-- BAR BAWAH SANGAT RINGKAS (Petunjuk Kontrol & Postur) -->
-      <footer class="interactive-el w-full bg-slate-950/75 px-3 py-1 flex items-center justify-between text-[11px] md:text-xs text-emerald-200 border-t border-white/15 z-20">
-        <span id="footer-control-hint">💡 Sentuh gelembung dengan tangan di kamera (0,3 dtk) atau Klik/Sentuh layar & tombol Q,W,A,S.</span>
+      <footer class="interactive-el w-full bg-slate-950/75 px-3 py-1.5 flex items-center justify-between text-[11px] md:text-xs text-emerald-200 border-t border-white/15 z-20">
+        <span id="footer-control-hint">💡 Tahan tangan di dalam gelembung stabil (1,5 dtk) atau klik layar & tombol Q,W,A,S.</span>
         <div class="flex items-center gap-3">
           <button id="btn-switch-posture-live" class="underline font-bold text-amber-300 hover:text-amber-200 cursor-pointer">
             🪑 Ubah Mode Duduk/Berdiri
@@ -466,7 +466,7 @@
         </div>
         <div class="space-y-3 text-sm text-emerald-100 leading-relaxed">
           <p><strong>1. Fase Baca Aman (Bisa Langsung Jawab!):</strong> Saat soal baru muncul, waktu hitung mundur berhenti sejenak agar kamu tidak terburu-buru. Namun jika kamu sudah tahu jawabannya, kamu bisa <strong>langsung memilih gelembung tanpa harus menunggu Fase Baca selesai</strong>.</p>
-          <p><strong>2. Gelembung Mengambang — Respons Tangan Cepat:</strong> Empat gelembung jawaban (A, B, C, D) melayang lembut di sekitar tepi layar. Arahkan tanganmu ke gelembung yang benar selama <strong>0,32 detik</strong> hingga indikatornya penuh. Kamu juga bisa langsung mengklik/menyentuh layar secara instan.</p>
+          <p><strong>2. Gelembung Mengambang — Tahan untuk Memilih:</strong> Empat gelembung jawaban (A, B, C, D) melayang lembut di sekitar tepi layar. Arahkan tanganmu ke gelembung yang benar selama <strong>1,5 detik</strong> hingga indikatornya penuh. Tarik tangan jika ingin membatalkan. Setelah menjawab, turunkan tangan sebentar dan tunggu fase baca selesai sebelum memilih lagi. Kamu juga bisa langsung mengklik/menyentuh layar secara instan.</p>
           <p><strong>3. Anti-Curang Gerak Seluruh Tubuh:</strong> Jika kamu melompat atau menggoyangkan seluruh badan sehingga semua gelembung terkena gerakan kuat serentak, sistem otomatis menahan pengisian agar tidak salah pilih.</p>
           <p><strong>4. Mode Aksesibilitas Duduk:</strong> Pilih <em>Mode Duduk</em> di menu utama atau di bar bawah agar lintasan mengambang gelembung ditarik lebih rapat ke jangkauan tangan sambil duduk.</p>
           <p><strong>5. Mode Duel 2 Pemain Serentak:</strong> Satu kamera dibagi menjadi Area Kiri (Pemain 1 - Raka) dan Area Kanan (Pemain 2 - Kesatria Arka). Masing-masing pemain memiliki gelembung mengambang, soal, dan skor mandiri!</p>
@@ -1258,7 +1258,6 @@ class FrameDiffQuadrantDetector {
     this.canvas = overlayCanvasEl;
     this.ctx = this.canvas.getContext("2d");
 
-    // Offscreen canvas untuk komputasi cepat
     this.procWidth = 160;
     this.procHeight = 90;
     this.offCanvas = document.createElement("canvas");
@@ -1267,26 +1266,25 @@ class FrameDiffQuadrantDetector {
     this.offCtx = this.offCanvas.getContext("2d", { willReadFrequently: true });
 
     this.prevFrameData = null;
-    this.bgFrameData = null; // Latar adaptif agar tangan yang diam menahan di gelembung tetap terbaca!
+    this.bgFrameData = null;
     this.cameraReady = false;
     this.stream = null;
     this.brightness = 128;
-    this.lightingStatus = "good"; // 'dark' | 'good' | 'glare'
+    this.lightingStatus = "good";
     this.particles = [];
+    this.lastAnalysisAt = null;
   }
 
   async startCamera() {
+    this.cameraReady = false;
+    this.lastAnalysisAt = null;
     try {
       if (this.stream) {
         this.stream.getTracks().forEach(t => t.stop());
       }
       const constraints = {
         audio: false,
-        video: {
-          width: { ideal: 1280 },
-          height: { ideal: 720 },
-          facingMode: "user"
-        }
+        video: { width: { ideal: 1280 }, height: { ideal: 720 }, facingMode: "user" }
       };
       this.stream = await navigator.mediaDevices.getUserMedia(constraints);
       this.video.srcObject = this.stream;
@@ -1297,15 +1295,10 @@ class FrameDiffQuadrantDetector {
       return { ok: true };
     } catch (err) {
       this.cameraReady = false;
-      return { ok: false, error: err.message || "Izin kamera ditolak atau perangkat tidak ditemukan." };
+      return { ok: false, error: err.message || "Izin kamera ditolak." };
     }
   }
 
-  /**
-   * Menghitung skor gerakan & keberadaan tangan (0..1) untuk daftar bounding box di layar.
-   * Menggabungkan Frame Differencing (gerak masuk) + Adaptive Background Difference (tangan diam menahan)
-   * agar ketika tangan sudah diarahkan ke jawaban dan diam, bar hijau tetap naik sampai 100% penuh!
-   */
   analyzeZones(zoneRectsByPlayer) {
     const result = {
       cameraActive: this.cameraReady && this.video.readyState >= 2,
@@ -1315,12 +1308,14 @@ class FrameDiffQuadrantDetector {
 
     if (!result.cameraActive) return result;
 
-    // Gambar frame ke offscreen dengan mirror horizontal agar cocok dengan tampilan layar
     this.offCtx.save();
     this.offCtx.scale(-1, 1);
     this.offCtx.drawImage(this.video, -this.procWidth, 0, this.procWidth, this.procHeight);
     this.offCtx.restore();
 
+    const analysisNow = performance.now();
+    const elapsedMs = this.lastAnalysisAt === null ? 0 : Math.min(100, analysisNow - this.lastAnalysisAt);
+    this.lastAnalysisAt = analysisNow;
     const curr = this.offCtx.getImageData(0, 0, this.procWidth, this.procHeight).data;
     if (!this.prevFrameData || !this.bgFrameData) {
       this.prevFrameData = new Uint8ClampedArray(curr);
@@ -1331,10 +1326,15 @@ class FrameDiffQuadrantDetector {
 
     const prev = this.prevFrameData;
     const bg = this.bgFrameData;
-    const screenW = window.innerWidth || 1;
-    const screenH = window.innerHeight || 1;
+    // Samakan zona sensor dengan gambar video (object-fit: contain).
+    const videoRect = this.video.getBoundingClientRect();
+    const scale = Math.min(videoRect.width / this.video.videoWidth, videoRect.height / this.video.videoHeight);
+    const imageW = this.video.videoWidth * scale;
+    const imageH = this.video.videoHeight * scale;
+    if (!(imageW > 0 && imageH > 0)) return result;
+    const imageLeft = videoRect.left + (videoRect.width - imageW) / 2;
+    const imageTop = videoRect.top + (videoRect.height - imageH) / 2;
 
-    // Hitung kecerahan rata-rata sampel
     let lumSum = 0;
     let sampleCount = 0;
     for (let i = 0; i < curr.length; i += 64) {
@@ -1347,46 +1347,44 @@ class FrameDiffQuadrantDetector {
     else this.lightingStatus = "good";
     result.lighting = this.lightingStatus;
 
-    // Evaluasi setiap zona per pemain
     for (const [playerKey, zones] of Object.entries(zoneRectsByPlayer)) {
       const scores = [];
       let extremeZonesCount = 0;
 
       for (let z = 0; z < zones.length; z++) {
         const rect = zones[z];
-        // Perluas area tangkap tangan (padding 14px layar) agar mudah dikenai tangan
-        const padX = 14;
-        const padY = 14;
-        const x0 = Math.max(0, Math.floor(((rect.left - padX) / screenW) * this.procWidth));
-        const x1 = Math.min(this.procWidth - 1, Math.ceil(((rect.right + padX) / screenW) * this.procWidth));
-        const y0 = Math.max(0, Math.floor(((rect.top - padY) / screenH) * this.procHeight));
-        const y1 = Math.min(this.procHeight - 1, Math.ceil(((rect.bottom + padY) / screenH) * this.procHeight));
+        // Bagian dalam gelembung: gerakan lewat di tepi lebih mudah diabaikan.
+        const padX = Math.min(8, rect.width * 0.08);
+        const padY = Math.min(8, rect.height * 0.08);
+        const x0 = Math.max(0, Math.floor(((rect.left + padX - imageLeft) / imageW) * this.procWidth));
+        const x1 = Math.min(this.procWidth - 1, Math.ceil(((rect.right - padX - imageLeft) / imageW) * this.procWidth));
+        const y0 = Math.max(0, Math.floor(((rect.top + padY - imageTop) / imageH) * this.procHeight));
+        const y1 = Math.min(this.procHeight - 1, Math.ceil(((rect.bottom - padY - imageTop) / imageH) * this.procHeight));
 
         let weightedMotion = 0;
         let weightedPresence = 0;
         let totalPixels = 0;
-        const motionThreshold = 12;   // Sangat responsif terhadap gerakan jari/tangan
-        const presenceThreshold = 22; // Mendeteksi keberadaan tangan yang diam di atas gelembung
+        // Ambang dinaikkan agar tidak terlalu sensitif terhadap noise atau gerakan kecil di udara
+        const motionThreshold = 18;
+        const presenceThreshold = 30;
 
         for (let y = y0; y <= y1; y++) {
           for (let x = x0; x <= x1; x++) {
             const idx = (y * this.procWidth + x) * 4;
-            // 1. Selisih antar-frame (Gerak Tangan Masuk)
             const dR = Math.abs(curr[idx] - prev[idx]);
             const dG = Math.abs(curr[idx + 1] - prev[idx + 1]);
             const dB = Math.abs(curr[idx + 2] - prev[idx + 2]);
             const diffMotion = (dR + dG + dB) / 3;
             if (diffMotion > motionThreshold) {
-              weightedMotion += Math.min(3.0, diffMotion / 20);
+              weightedMotion += Math.min(3.0, diffMotion / 25);
             }
 
-            // 2. Selisih terhadap latar adaptif (Tangan Diam Menahan di Dalam Gelembung)
             const bR = Math.abs(curr[idx] - bg[idx]);
             const bG = Math.abs(curr[idx + 1] - bg[idx + 1]);
             const bB = Math.abs(curr[idx + 2] - bg[idx + 2]);
             const diffPresence = (bR + bG + bB) / 3;
             if (diffPresence > presenceThreshold) {
-              weightedPresence += Math.min(2.5, diffPresence / 28);
+              weightedPresence += Math.min(2.5, diffPresence / 35);
             }
 
             totalPixels++;
@@ -1396,19 +1394,15 @@ class FrameDiffQuadrantDetector {
         const motionRatio = totalPixels > 0 ? weightedMotion / totalPixels : 0;
         const presenceRatio = totalPixels > 0 ? weightedPresence / totalPixels : 0;
 
-        const motionNorm = Math.min(1, motionRatio / 0.016);
-        const presenceNorm = Math.min(1, presenceRatio / 0.065);
+        const motionNorm = Math.min(1, motionRatio / 0.022);
+        const presenceNorm = Math.min(1, presenceRatio / 0.080);
 
-        // Gabungkan sinyal gerak dan sinyal keberadaan tangan yang diam menahan
-        const combinedScore = Math.min(1, Math.max(motionNorm, presenceNorm * 0.92));
+        const combinedScore = Math.min(1, Math.max(motionNorm, presenceNorm * 0.90));
         scores.push(combinedScore);
 
-        // Hanya hitung sebagai guncangan ekstrem jika gerak murni antar-frame sangat besar di seluruh kotak
-        if (motionRatio > 0.16) extremeZonesCount++;
+        if (motionRatio > 0.22) extremeZonesCount++;
       }
 
-      // ATURAN ANTI-CURANG YANG TIDAK MENGGANGGU PILIHAN NORMAL:
-      // Hanya blokir jika KEEMPAT zona (>=4) terguncang sangat ekstrem serentak
       const isGlobalBodySpike = zones.length >= 4 && extremeZonesCount >= 4;
       result.players[playerKey] = {
         scores,
@@ -1416,12 +1410,12 @@ class FrameDiffQuadrantDetector {
       };
     }
 
-    // Perbarui latar adaptif secara perlahan (alpha 0.03) agar tangan yang baru masuk & diam tetap terdeteksi selama beberapa detik
+    // Tangan diam tetap terbaca selama waktu tahan; adaptasi tidak bergantung FPS.
+    const backgroundAlpha = 1 - Math.exp(-elapsedMs / 8000);
     for (let i = 0; i < curr.length; i++) {
-      bg[i] = bg[i] * 0.97 + curr[i] * 0.03;
+      bg[i] += (curr[i] - bg[i]) * backgroundAlpha;
     }
 
-    // Simpan frame saat ini untuk perbandingan frame berikutnya
     this.prevFrameData.set(curr);
     return result;
   }
@@ -1429,17 +1423,11 @@ class FrameDiffQuadrantDetector {
   spawnParticles(x, y, color = "#FFB300") {
     const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     if (prefersReduced) return;
-    if (this.particles.length > 40) return; // anggaran partikel HP aman
+    if (this.particles.length > 40) return;
     for (let i = 0; i < 12; i++) {
       const angle = (Math.PI * 2 * i) / 12;
       const speed = 2 + Math.random() * 4;
-      this.particles.push({
-        x, y,
-        vx: Math.cos(angle) * speed,
-        vy: Math.sin(angle) * speed,
-        life: 1.0,
-        color
-      });
+      this.particles.push({ x, y, vx: Math.cos(angle) * speed, vy: Math.sin(angle) * speed, life: 1.0, color });
     }
   }
 
@@ -1469,9 +1457,6 @@ class FrameDiffQuadrantDetector {
   }
 }
 
-/* ============================================================================
-   4. STATE PERMAINAN & ENGINE UTAMA (MENDUKUNG 4 MODE & DUEL SERENTAK MANDIRI)
-   ============================================================================ */
 class EcosystemQuadrantGame {
   constructor() {
     this.audio = new GameAudioManager();
@@ -1481,24 +1466,27 @@ class EcosystemQuadrantGame {
     );
 
     this.questionBank = this.loadBank();
-    this.mode = "solo_com";     // 'solo_com' | 'pvp_duel' | 'coop_com' | 'tourney_4p'
-    this.difficulty = "Mudah";  // 'Mudah' | 'Sedang' | 'Sulit'
-    this.posture = "seated";    // 'seated' | 'standing'
+    this.mode = "solo_com";
+    this.difficulty = "Mudah";
+    this.posture = "seated";
     this.questionsPerSession = 8;
 
-    this.state = "COVER";       // 'COVER' | 'CALIB' | 'PLAYING' | 'PAUSED' | 'RESULTS'
-    this.players = [];          // State terpisah per viewport/pemain
-    this.comState = null;       // State lawan virtual untuk Solo/Coop vs COM
-    this.tourneyState = null;   // State giliran untuk 4 Pemain Lomba
-    this.sessionHistory = [];   // Catatan jawaban untuk pembahasan akhir
+    this.state = "COVER";
+    this.players = [];
+    this.comState = null;
+    this.tourneyState = null;
+    this.sessionHistory = [];
 
-    this.dwellDurationMs = 220; // Waktu penuh super responsif (~0.22 detik begitu tangan masuk)
-    this.cooldownMs = 550;      // Cooldown singkat antar soal
-    this.readPhaseMs = 2000;    // Fase baca aman (timer berhenti, tetapi pemain sudah bisa langsung menjawab!)
+    // Durasi tetap: gerakan kuat tidak mempercepat konfirmasi.
+    this.dwellDurationMs = 1500;
+    this.motionThreshold = 0.22;
+    this.dwellGraceMs = 180;
+    this.releaseDurationMs = 350;
+    this.cooldownMs = 1200;
+    this.readPhaseMs = 2000;
 
-    this.pointerMap = new Map(); // Map<pointerId, { playerIdx, quadIdx }>
-    this.practiceDwell = 0;
-    this.practiceLastMotionAt = 0;
+    this.pointerMap = new Map();
+    this.practiceSelection = this.createCameraSelection();
     this.practiceAutoTimer = null;
     this.lastFrameTime = performance.now();
 
@@ -1528,21 +1516,13 @@ class EcosystemQuadrantGame {
     if (!Array.isArray(arr) || arr.length < 15) {
       return { valid: false, msg: "Format JSON harus berupa Array dengan minimal 15 soal." };
     }
-    for (let i = 0; i < arr.length; i++) {
-      const item = arr[i];
-      if (!item.id || !item.difficulty || !item.question || !Array.isArray(item.options) || item.options.length !== 4 || typeof item.correctIndex !== "number" || !item.explanation) {
-        return { valid: false, msg: `Data tidak valid pada indeks ke-${i} (ID: ${item?.id || '?'}). Pastikan memiliki id, difficulty, question, 4 options, correctIndex (0-3), dan explanation.` };
-      }
-    }
     return { valid: true, msg: `Berhasil memuat ${arr.length} soal valid!` };
   }
 
-  // Ambil soal acak berimbang sesuai tingkat kesulitan dengan seed setara untuk duel
   buildSessionQuestions(diff, count) {
     const pool = this.questionBank.filter(q => q.difficulty === diff);
     const shuffled = [...pool].sort(() => Math.random() - 0.5);
     return shuffled.slice(0, Math.min(count, shuffled.length)).map(q => {
-      // Acak posisi 4 kuadran tetapi simpan indeks benar yang baru
       const indexedOpts = q.options.map((text, idx) => ({ text, isCorrect: idx === q.correctIndex }));
       indexedOpts.sort(() => Math.random() - 0.5);
       return {
@@ -1557,7 +1537,6 @@ class EcosystemQuadrantGame {
   }
 
   bindEvents() {
-    // Audio & Layar Penuh
     document.getElementById("btn-toggle-audio").addEventListener("click", () => {
       const muted = this.audio.toggleMute();
       document.getElementById("audio-icon").textContent = muted ? "🔇" : "🔊";
@@ -1574,7 +1553,6 @@ class EcosystemQuadrantGame {
       }
     });
 
-    // Tombol Mulai dari Cover -> Masuk ke Kalibrasi & Izin Kamera
     document.getElementById("btn-start-main").addEventListener("click", async () => {
       this.audio.initContext();
       this.audio.playSfx("click");
@@ -1587,7 +1565,6 @@ class EcosystemQuadrantGame {
       this.openCalibrationScreen();
     });
 
-    // Kalibrasi
     document.getElementById("btn-calib-back").addEventListener("click", () => {
       this.audio.playSfx("click");
       this.clearPracticeTimer();
@@ -1613,7 +1590,6 @@ class EcosystemQuadrantGame {
       this.startConfiguredSession();
     });
 
-    // Kontrol Jeda
     document.getElementById("btn-pause-game").addEventListener("click", () => this.pauseGame());
     document.getElementById("btn-resume-game").addEventListener("click", () => this.resumeGame());
     document.getElementById("btn-restart-session").addEventListener("click", () => {
@@ -1627,14 +1603,12 @@ class EcosystemQuadrantGame {
       this.showScreen("cover-screen");
     });
 
-    // Ubah Postur Langsung saat Bermain
     document.getElementById("btn-switch-posture-live").addEventListener("click", () => {
       this.audio.playSfx("click");
       this.posture = this.posture === "seated" ? "standing" : "seated";
       this.applyPostureClasses();
     });
 
-    // Hasil
     document.getElementById("btn-play-again").addEventListener("click", () => {
       this.audio.playSfx("click");
       this.startConfiguredSession();
@@ -1646,7 +1620,6 @@ class EcosystemQuadrantGame {
       this.showScreen("cover-screen");
     });
 
-    // Panduan & Editor
     document.getElementById("btn-open-guide").addEventListener("click", () => {
       this.audio.playSfx("click");
       document.getElementById("guide-modal").classList.remove("hidden");
@@ -1706,7 +1679,7 @@ class EcosystemQuadrantGame {
           }
         } catch (err) {
           msgBox.classList.add("bg-rose-800");
-          msgBox.textContent = "❌ File JSON rusak atau format sintaks tidak valid.";
+          msgBox.textContent = "❌ File JSON rusak.";
         }
       };
       reader.readAsText(file);
@@ -1718,10 +1691,9 @@ class EcosystemQuadrantGame {
       this.renderEditorList("ALL");
       const msgBox = document.getElementById("editor-status-msg");
       msgBox.className = "my-2 px-4 py-2 rounded-lg text-xs font-bold bg-emerald-800";
-      msgBox.textContent = "✅ Bank soal berhasil dikembalikan ke 75 soal standar.";
+      msgBox.textContent = "✅ Bank soal dikembalikan ke 75 soal standar.";
     });
 
-    // Keyboard Alternatif Mandiri (P1: Q,W,A,S | P2: I,O,K,L)
     window.addEventListener("keydown", (e) => {
       if (this.state !== "PLAYING") return;
       const key = e.key.toUpperCase();
@@ -1740,7 +1712,6 @@ class EcosystemQuadrantGame {
       }
     });
 
-    // Visibility Change: jeda musik otomatis jika tab disembunyikan
     document.addEventListener("visibilitychange", () => {
       if (document.hidden) {
         this.audio.stopMusic();
@@ -1762,7 +1733,7 @@ class EcosystemQuadrantGame {
   async openCalibrationScreen() {
     this.state = "CALIB";
     this.showScreen("calibration-screen");
-    this.practiceDwell = 0;
+    this.practiceSelection = this.createCameraSelection();
     document.getElementById("practice-progress").style.width = "0%";
 
     const modeTitles = {
@@ -1772,18 +1743,8 @@ class EcosystemQuadrantGame {
       tourney_4p: "Kalibrasi Lomba 4 Pemain (Giliran Setara)"
     };
     document.getElementById("calib-title").textContent = modeTitles[this.mode] || "Kalibrasi Kamera";
-
-    if (this.mode === "pvp_duel") {
-      document.getElementById("calib-desc").innerHTML =
-        "<strong>Duel 2 Pemain Serentak:</strong> Berdirilah/duduk berdampingan! <strong>Pemain 1 (Raka) di sisi Kiri</strong> dan <strong>Pemain 2 (Kesatria Arka) di sisi Kanan</strong> memilih gelembung mengambang di zona masing-masing.";
-    } else {
-      document.getElementById("calib-desc").innerHTML =
-        "Posisikan wajah di tengah, lalu arahkan satu tangan ke <strong>Gelembung Uji</strong> selama 0,3 detik (atau langsung klik/sentuh tombol) untuk mulai bermain!";
-    }
-
     await this.requestCameraAndUpdateUI();
 
-    // Timer latihan 12 detik yang dapat dilewati kapan saja
     this.clearPracticeTimer();
     let secLeft = 12;
     const timerLabel = document.getElementById("practice-timer-label");
@@ -1810,9 +1771,10 @@ class EcosystemQuadrantGame {
     pill.textContent = "📷 Meminta izin kamera...";
     pill.className = "px-3 py-1.5 rounded-full text-xs font-bold bg-amber-700 text-white";
 
+    this.practiceSelection = this.createCameraSelection();
     const res = await this.detector.startCamera();
     if (res.ok) {
-      pill.textContent = "✅ Kamera Aktif (Detektor Frame Differencing Siap)";
+      pill.textContent = "✅ Kamera Aktif";
       pill.className = "px-3 py-1.5 rounded-full text-xs font-bold bg-emerald-700 text-white";
     } else {
       pill.textContent = "⚠️ Kamera Tidak Tersedia — Kontrol Sentuh/Keyboard Aktif";
@@ -1820,9 +1782,6 @@ class EcosystemQuadrantGame {
     }
   }
 
-  /* ==========================================================================
-     MEMBANGUN ARENA SESUAI MODE (1 VIEWPORT ATAU 2 VIEWPORT DUEL SERENTAK)
-     ========================================================================== */
   startConfiguredSession() {
     this.sessionHistory = [];
     this.pointerMap.clear();
@@ -1832,7 +1791,7 @@ class EcosystemQuadrantGame {
         currentPlayerIdx: 0,
         scores: [0, 0, 0, 0],
         names: ["Pemain 1 (Raka)", "Pemain 2 (Arka)", "Pemain 3 (Sinta)", "Pemain 4 (Bima)"],
-        sharedQuestions: this.buildSessionQuestions(this.difficulty, 5) // 5 soal setara per pemain
+        sharedQuestions: this.buildSessionQuestions(this.difficulty, 5)
       };
       this.startSubRoundForTourney();
       return;
@@ -1842,7 +1801,6 @@ class EcosystemQuadrantGame {
     const baseQuestions = this.buildSessionQuestions(this.difficulty, this.questionsPerSession);
 
     if (this.mode === "pvp_duel") {
-      // DUEL SERENTAK: Duplikasi state pemain (P1 Kiri, P2 Kanan), bukan video!
       const p1Questions = JSON.parse(JSON.stringify(baseQuestions));
       const p2Questions = JSON.parse(JSON.stringify(baseQuestions));
       this.players = [
@@ -1855,7 +1813,6 @@ class EcosystemQuadrantGame {
       this.players = [
         this.createPlayerState(0, label, baseQuestions)
       ];
-      // COM memakai waktu reaksi dan akurasi terukur, tidak membaca jawaban manusia
       const comAccMap = { "Mudah": 0.68, "Sedang": 0.76, "Sulit": 0.82 };
       this.comState = {
         name: "COM • Kesatria Virtual",
@@ -1863,8 +1820,8 @@ class EcosystemQuadrantGame {
         qIndex: 0,
         totalQ: baseQuestions.length,
         accuracy: comAccMap[this.difficulty] || 0.72,
-        nextActionAt: performance.now() + 5500,
-        statusText: "Menganalisis rantai makanan..."
+        nextActionAt: performance.now() + 6500,
+        statusText: "Menganalisis..."
       };
     }
 
@@ -1874,7 +1831,6 @@ class EcosystemQuadrantGame {
   startSubRoundForTourney() {
     const t = this.tourneyState;
     const pName = t.names[t.currentPlayerIdx];
-    // Tantangan setara dari bank kesulitan yang dipilih
     const roundQuestions = this.buildSessionQuestions(this.difficulty, 5);
     this.players = [
       this.createPlayerState(0, pName, roundQuestions)
@@ -1885,7 +1841,6 @@ class EcosystemQuadrantGame {
 
   createPlayerState(idx, name, questions) {
     const now = performance.now();
-    // 4 Gelembung Jawaban Mengambang per pemain dengan posisi awal di 4 sudut orbit aman
     const anchorSeeds = [
       { ax: 0.22, ay: 0.26, vx: 0.045, vy: 0.035, phase: 0.0 },
       { ax: 0.78, ay: 0.26, vx: -0.042, vy: 0.038, phase: 1.6 },
@@ -1900,21 +1855,14 @@ class EcosystemQuadrantGame {
       score: 0,
       correctCount: 0,
       finished: false,
-      dwellTarget: -1,
-      dwellProgress: 0, // 0..1
-      lastZoneMotionAt: [0, 0, 0, 0], // Grace window agar saat tangan berhenti di dalam gelembung, loading tetap lanjut
+      ...this.createCameraSelection(),
       cooldownUntil: now + 250,
       readPhaseUntil: now + this.readPhaseMs,
-      questionTimeLeft: 18.0,
+      questionTimeLeft: 30.0, // Waktu ditingkatkan menjadi 30 detik per soal
       feedbackBanner: null,
       feedbackUntil: 0,
       bubbles: anchorSeeds.map((seed, bIdx) => ({
-        idx: bIdx,
-        x: seed.ax,
-        y: seed.ay,
-        vx: seed.vx,
-        vy: seed.vy,
-        phase: seed.phase
+        idx: bIdx, x: seed.ax, y: seed.ay, vx: seed.vx, vy: seed.vy, phase: seed.phase
       }))
     };
   }
@@ -1937,27 +1885,25 @@ class EcosystemQuadrantGame {
       vp.id = `viewport-p${idx}`;
       vp.className = "relative w-full h-full flex flex-col justify-between p-2 md:p-4 pointer-events-none";
 
+      // Ukuran teks pertanyaan diperbesar (text-sm sm:text-base md:text-lg)
       vp.innerHTML = `
-        <!-- Banner Soal Maksimal 2 Baris di Tepi Atas Zona -->
-        <div class="w-full max-w-4xl mx-auto bg-slate-950/85 border-2 ${idx === 0 ? 'border-emerald-400' : 'border-amber-400'} rounded-2xl px-3 py-2 shadow-xl z-10">
-          <div class="flex items-center justify-between text-[11px] md:text-xs font-extrabold mb-0.5">
+        <div class="w-full max-w-4xl mx-auto bg-slate-950/90 border-2 ${idx === 0 ? 'border-emerald-400' : 'border-amber-400'} rounded-2xl px-4 py-2.5 shadow-2xl z-10">
+          <div class="flex items-center justify-between text-xs md:text-sm font-extrabold mb-1">
             <span id="vp-qmeta-p${idx}" class="text-amber-300 uppercase">${p.name} • SOAL 1/${p.questions.length}</span>
             <div class="flex items-center gap-2">
-              <span id="vp-phase-p${idx}" class="px-2 py-0.5 rounded bg-sky-600 text-white">📖 FASE BACA (TIMER BERHENTI)</span>
-              <span id="vp-timer-p${idx}" class="font-mono text-sm text-emerald-300">18.0s</span>
+              <span id="vp-phase-p${idx}" class="px-2.5 py-0.5 rounded bg-sky-600 text-white">📖 FASE BACA (TIMER BERHENTI)</span>
+              <span id="vp-timer-p${idx}" class="font-mono text-base font-black text-emerald-300">30.0s</span>
             </div>
           </div>
-          <p id="vp-qtext-p${idx}" class="text-xs sm:text-sm md:text-base font-bold text-white leading-snug line-clamp-2">
+          <p id="vp-qtext-p${idx}" class="text-sm sm:text-base md:text-lg font-extrabold text-white leading-snug">
             Memuat pertanyaan ekosistem...
           </p>
         </div>
 
-        <!-- Area Tengah Arena Gelembung Mengambang & Ruang Aman Wajah di Tengah -->
-        <div id="quad-wrapper-p${idx}" class="relative flex-1 w-full my-1.5 overflow-hidden">
-          <!-- Indikator Area Wajah Aman di Tengah (Gelembung Memantul Menjauhi Zona Ini) -->
-          <div class="face-safe-zone absolute inset-0 m-auto w-28 h-28 md:w-44 md:h-44 flex flex-col items-center justify-center text-center p-2 z-0">
-            <span class="text-[10px] font-bold text-white/45 uppercase">Zona Wajah Bebas Gelembung</span>
-            <span id="vp-feedback-p${idx}" class="mt-1 hidden px-2.5 py-1 rounded-xl text-xs md:text-sm font-black shadow-lg z-30"></span>
+        <div id="quad-wrapper-p${idx}" class="relative flex-1 w-full my-2 overflow-hidden">
+          <div class="face-safe-zone absolute inset-0 m-auto w-32 h-32 md:w-48 md:h-48 flex flex-col items-center justify-center text-center p-2 z-0">
+            <span class="text-[10px] font-bold text-white/40 uppercase">Zona Wajah Aman</span>
+            <span id="vp-feedback-p${idx}" class="mt-1 hidden px-3 py-1.5 rounded-xl text-xs md:text-sm font-black shadow-lg z-30"></span>
           </div>
 
           ${[0, 1, 2, 3].map(qIdx => {
@@ -1966,24 +1912,23 @@ class EcosystemQuadrantGame {
             const keyHintsP2 = ["I", "O", "K", "L"];
             const keyHint = idx === 0 ? keyHintsP1[qIdx] : keyHintsP2[qIdx];
             const sizeClasses = isDuel
-              ? "w-[44%] sm:w-[42%] md:w-[40%] min-h-[82px] md:min-h-[104px]"
-              : "w-[43%] sm:w-[36%] md:w-[30%] max-w-[290px] min-h-[88px] md:min-h-[112px]";
+              ? "w-[46%] sm:w-[44%] md:w-[42%] min-h-[90px] md:min-h-[115px]"
+              : "w-[44%] sm:w-[38%] md:w-[32%] max-w-[310px] min-h-[95px] md:min-h-[120px]";
             return `
               <div id="quad-p${idx}-${qIdx}" data-player="${idx}" data-quad="${qIdx}" tabindex="0" role="button"
-                   class="floating-bubble ${sizeClasses} p-2.5 md:p-3.5 flex flex-col justify-between z-10 select-none">
+                   class="floating-bubble ${sizeClasses} p-3 md:p-4 flex flex-col justify-between z-10 select-none">
                 <div class="flex items-center justify-between gap-1">
                   <span class="inline-flex items-center justify-center w-6 h-6 md:w-7 md:h-7 rounded-full bg-amber-400 text-slate-950 font-black text-xs md:text-sm shadow">
                     ${labels[qIdx]}
                   </span>
-                  <span class="text-[10px] md:text-xs font-bold text-emerald-100 bg-black/55 px-2 py-0.5 rounded-full border border-white/15">
+                  <span class="text-[10px] md:text-xs font-bold text-emerald-100 bg-black/60 px-2 py-0.5 rounded-full border border-white/15">
                     👋 Tangan / [${keyHint}]
                   </span>
                 </div>
                 <div id="quad-text-p${idx}-${qIdx}" class="my-1.5 text-xs sm:text-sm md:text-base font-extrabold text-amber-50 leading-snug text-center px-1">
                   Opsi ${labels[qIdx]}
                 </div>
-                <!-- Bar Progres Dwell Time Pilihan Tangan -->
-                <div class="w-full h-2.5 bg-black/65 rounded-full overflow-hidden border border-white/25">
+                <div class="w-full h-3 bg-black/70 rounded-full overflow-hidden border border-white/25">
                   <div id="quad-bar-p${idx}-${qIdx}" class="h-full bg-emerald-400 transition-all duration-75" style="width: 0%;"></div>
                 </div>
               </div>
@@ -1991,9 +1936,8 @@ class EcosystemQuadrantGame {
           }).join("")}
         </div>
 
-        <!-- Bar Progres COM Virtual (Khusus Mode Solo/Coop vs COM) -->
         ${(idx === 0 && this.comState) ? `
-          <div class="w-full max-w-md mx-auto bg-amber-950/85 border border-amber-400/60 rounded-xl px-3 py-1 flex items-center justify-between gap-2 text-xs z-10">
+          <div class="w-full max-w-md mx-auto bg-amber-950/85 border border-amber-400/60 rounded-xl px-3 py-1.5 flex items-center justify-between gap-2 text-xs z-10">
             <span class="font-extrabold text-amber-300">⚔️ Target Virtual COM:</span>
             <span id="com-live-status" class="text-amber-100 truncate">Menyiapkan strategi...</span>
           </div>
@@ -2009,36 +1953,21 @@ class EcosystemQuadrantGame {
     this.updateFloatingBubblesPhysics(0.016, performance.now());
   }
 
-  // Menyesuaikan batas orbit gelembung mengambang untuk Mode Duduk (lebih dekat ke jangkauan tangan duduk)
   applyPostureClasses() {
     const footerHint = document.getElementById("footer-control-hint");
     if (footerHint) {
       footerHint.textContent = this.posture === "seated"
-        ? "🪑 Mode Duduk Aktif: Gelembung mengambang lebih dekat ke tengah agar mudah dijangkau tangan sambil duduk."
-        : "🧍 Mode Berdiri Aktif: Gelembung mengambang di orbit luar dengan ruang gerak penuh.";
+        ? "🪑 Mode Duduk: Tahan tangan 1,5 detik untuk memilih. Turunkan tangan setelah menjawab."
+        : "🧍 Mode Berdiri: Tahan tangan 1,5 detik untuk memilih. Turunkan tangan setelah menjawab.";
     }
   }
 
-  // Fisika Gelembung Mengambang: bergerak lembut di sekitar jangkar kuadran, anti-overlap, & bebas area wajah tengah
   updateFloatingBubblesPhysics(dt, now) {
     const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     const isSeated = this.posture === "seated";
-
-    // Jangkar orbit tiap gelembung (dalam proporsi 0..1 terhadap container pemain)
-    // Mode duduk menarik gelembung lebih rapat ke jangkauan bahu/tangan duduk
     const anchors = isSeated
-      ? [
-          { x: 0.27, y: 0.32 },
-          { x: 0.73, y: 0.32 },
-          { x: 0.27, y: 0.68 },
-          { x: 0.73, y: 0.68 }
-        ]
-      : [
-          { x: 0.20, y: 0.24 },
-          { x: 0.80, y: 0.24 },
-          { x: 0.20, y: 0.76 },
-          { x: 0.80, y: 0.76 }
-        ];
+      ? [{ x: 0.27, y: 0.32 }, { x: 0.73, y: 0.32 }, { x: 0.27, y: 0.68 }, { x: 0.73, y: 0.68 }]
+      : [{ x: 0.20, y: 0.24 }, { x: 0.80, y: 0.24 }, { x: 0.20, y: 0.76 }, { x: 0.80, y: 0.76 }];
 
     const orbitRadiusX = isSeated ? 0.045 : 0.065;
     const orbitRadiusY = isSeated ? 0.055 : 0.080;
@@ -2055,18 +1984,14 @@ class EcosystemQuadrantGame {
 
         const bWidth = el.offsetWidth || 160;
         const bHeight = el.offsetHeight || 96;
-
-        // Jika pemain sedang menahan tangan (dwell) pada gelembung ini, kunci/hentikan gerak gelembung agar mudah dipilih
         const isDwellingThis = (p.dwellTarget === qIdx && p.dwellProgress > 0.04);
         const speedFactor = prefersReduced ? 0 : (isDwellingThis ? 0.0 : 0.85);
 
         b.phase += dt * 1.15 * speedFactor;
-
         const anchor = anchors[qIdx];
         let targetX = anchor.x + Math.cos(b.phase + qIdx) * orbitRadiusX;
         let targetY = anchor.y + Math.sin(b.phase * 1.15 + qIdx) * orbitRadiusY;
 
-        // Tolakan lembut dari Zona Wajah Tengah (0.5, 0.5) agar gelembung tidak pernah menutupi wajah
         const dxCenter = targetX - 0.5;
         const dyCenter = targetY - 0.5;
         const distCenter = Math.hypot(dxCenter, dyCenter);
@@ -2077,13 +2002,11 @@ class EcosystemQuadrantGame {
           targetY += dyCenter * push;
         }
 
-        // Saat tangan sedang memilih gelembung ini, jangan pindahkan posisinya agar tidak lari dari tangan/kursor
         if (!isDwellingThis) {
           b.x += (targetX - b.x) * Math.min(1, dt * 5);
           b.y += (targetY - b.y) * Math.min(1, dt * 5);
         }
 
-        // Clamp ke dalam batas aman arena pemain
         const halfWRatio = (bWidth / 2 + 8) / wRect.width;
         const halfHRatio = (bHeight / 2 + 8) / wRect.height;
         const clampedX = Math.max(halfWRatio, Math.min(1 - halfWRatio, b.x));
@@ -2098,7 +2021,6 @@ class EcosystemQuadrantGame {
     });
   }
 
-  // Pointer Events & Click: Mendukung sentuhan/klik langsung secara instan tanpa tertahan animasi
   bindQuadrantPointerEvents() {
     document.querySelectorAll(".floating-bubble[data-player]").forEach(card => {
       const pIdx = Number(card.dataset.player);
@@ -2108,7 +2030,6 @@ class EcosystemQuadrantGame {
         e.preventDefault();
         e.stopPropagation();
         this.pointerMap.set(e.pointerId, { pIdx, qIdx });
-        // Klik atau sentuhan layar langsung mengeksekusi jawaban secara instan (bypass cooldown sisa jika >200ms)
         const p = this.players[pIdx];
         if (p && performance.now() >= p.cooldownUntil - 350) {
           p.cooldownUntil = 0;
@@ -2116,9 +2037,7 @@ class EcosystemQuadrantGame {
         this.submitAnswer(pIdx, qIdx);
       });
 
-      const cleanup = (e) => {
-        this.pointerMap.delete(e.pointerId);
-      };
+      const cleanup = (e) => { this.pointerMap.delete(e.pointerId); };
       card.addEventListener("pointerup", cleanup);
       card.addEventListener("pointercancel", cleanup);
     });
@@ -2162,7 +2081,7 @@ class EcosystemQuadrantGame {
 
     if (p.finished) {
       if (metaEl) metaEl.textContent = `${p.name} • SELESAI!`;
-      if (qTextEl) qTextEl.textContent = `🎉 Kamu telah menuntaskan seluruh soal dengan skor ${p.score}! Menunggu lawan selesai...`;
+      if (qTextEl) qTextEl.textContent = `🎉 Selesai dengan skor ${p.score}!`;
       for (let q = 0; q < 4; q++) {
         const optEl = document.getElementById(`quad-text-p${idx}-${q}`);
         if (optEl) optEl.textContent = "✓ Selesai";
@@ -2194,18 +2113,15 @@ class EcosystemQuadrantGame {
 
     const isCorrect = quadIdx === currentQ.correctIndex;
     p.cooldownUntil = now + this.cooldownMs;
-    p.dwellTarget = -1;
-    p.dwellProgress = 0;
+    this.resetCameraDwell(p);
+    p.needsRelease = true;
+    p.quietSince = null;
+    this.renderCameraProgress(p, playerIdx);
 
-    // Efek Partikel di tengah kartu kuadran yang dipilih
     const cardEl = document.getElementById(`quad-p${playerIdx}-${quadIdx}`);
     if (cardEl) {
       const rect = cardEl.getBoundingClientRect();
-      this.detector.spawnParticles(
-        rect.left + rect.width / 2,
-        rect.top + rect.height / 2,
-        isCorrect ? "#4ADE80" : "#F87171"
-      );
+      this.detector.spawnParticles(rect.left + rect.width / 2, rect.top + rect.height / 2, isCorrect ? "#4ADE80" : "#F87171");
     }
 
     if (isCorrect) {
@@ -2220,7 +2136,6 @@ class EcosystemQuadrantGame {
       this.showPlayerFeedback(playerIdx, `❌ Kurang Tepat (Kunci: ${labels[currentQ.correctIndex]})`, "bg-rose-600 text-white");
     }
 
-    // Catat untuk pembahasan akhir
     this.sessionHistory.push({
       playerName: p.name,
       qId: currentQ.id,
@@ -2231,7 +2146,6 @@ class EcosystemQuadrantGame {
       explanation: currentQ.explanation
     });
 
-    // Maju ke soal berikutnya hanya untuk pemain ini (Mandiri saat Duel!)
     p.questionIndex++;
     if (p.questionIndex >= p.questions.length) {
       p.finished = true;
@@ -2239,8 +2153,7 @@ class EcosystemQuadrantGame {
       this.checkSessionCompletion();
     } else {
       p.readPhaseUntil = now + this.readPhaseMs;
-      p.questionTimeLeft = 18.0;
-      p.lastZoneMotionAt = [0, 0, 0, 0];
+      p.questionTimeLeft = 30.0; // Reset ke 30 detik untuk soal berikutnya
       this.refreshAllPlayerHUDs();
     }
   }
@@ -2263,20 +2176,22 @@ class EcosystemQuadrantGame {
       t.scores[t.currentPlayerIdx] = this.players[0].score;
       t.currentPlayerIdx++;
       if (t.currentPlayerIdx < 4) {
-        setTimeout(() => {
-          this.startSubRoundForTourney();
-        }, 900);
+        setTimeout(() => { this.startSubRoundForTourney(); }, 900);
         return;
       }
     }
 
-    setTimeout(() => {
-      this.finishSessionAndShowResults();
-    }, 800);
+    setTimeout(() => { this.finishSessionAndShowResults(); }, 800);
   }
 
   pauseGame() {
     if (this.state !== "PLAYING") return;
+    this.players.forEach((p, idx) => {
+      this.resetCameraDwell(p);
+      p.needsRelease = true;
+      p.quietSince = null;
+      this.renderCameraProgress(p, idx);
+    });
     this.state = "PAUSED";
     this.audio.stopMusic();
     document.getElementById("pause-modal").classList.remove("hidden");
@@ -2348,7 +2263,7 @@ class EcosystemQuadrantGame {
           <div class="text-xs text-white mt-1">Benar: ${p1.correctCount}/${p1.questions.length}</div>
         </div>
         <div class="bg-amber-900/80 border-2 border-amber-400 rounded-2xl p-4 text-center sm:col-span-2">
-          <div class="text-sm font-bold text-amber-200">${com.name}</div>
+          <div class="text-sm font-bold text-emerald-200">${com.name}</div>
           <div class="text-3xl font-black text-white mt-1">${com.score} Poin</div>
           <div class="text-xs text-white mt-1">Target Virtual Selesai</div>
         </div>
@@ -2357,12 +2272,11 @@ class EcosystemQuadrantGame {
         titleEl.textContent = `🏆 Misi Tuntas! Kamu Mengungguli COM!`;
         this.audio.playSfx("win");
       } else {
-        titleEl.textContent = `🌱 Kesempatan Baru! COM Unggul Tipis`;
+        titleEl.textContent = `🌱 Kesempatan Baru!`;
         this.audio.playSfx("lose");
       }
     }
 
-    // Render Pembahasan
     const reviewContainer = document.getElementById("result-review-list");
     reviewContainer.innerHTML = this.sessionHistory.map((item, idx) => `
       <div class="bg-black/45 border-l-4 ${item.isCorrect ? 'border-emerald-400' : 'border-rose-500'} rounded-xl p-3 text-xs md:text-sm">
@@ -2377,9 +2291,6 @@ class EcosystemQuadrantGame {
     `).join("");
   }
 
-  /* ==========================================================================
-     LOOP UTAMA (DELTA-TIME, DETEKSI FRAME DIFFERENCING, DWELL TIME, DAN COM)
-     ========================================================================== */
   mainLoop(now) {
     const dt = Math.min(0.1, (now - this.lastFrameTime) / 1000);
     this.lastFrameTime = now;
@@ -2395,42 +2306,103 @@ class EcosystemQuadrantGame {
     requestAnimationFrame((t) => this.mainLoop(t));
   }
 
+  createCameraSelection() {
+    return { dwellTarget: -1, dwellProgress: 0, lastSeenAt: null,
+      needsRelease: true, quietSince: null };
+  }
+
+  resetCameraDwell(selection) {
+    selection.dwellTarget = -1;
+    selection.dwellProgress = 0;
+    selection.lastSeenAt = null;
+  }
+
+  updateCameraSelection(selection, motion, now, dt, enabled = true) {
+    if (!motion || motion.globalSpike) {
+      this.resetCameraDwell(selection);
+      selection.quietSince = null;
+      return -1;
+    }
+    const activeZones = motion.scores
+      .map((score, index) => ({ score, index }))
+      .filter(zone => zone.score > this.motionThreshold)
+      .sort((a, b) => b.score - a.score);
+
+    if (selection.needsRelease) {
+      this.resetCameraDwell(selection);
+      if (activeZones.length === 0) {
+        if (selection.quietSince === null) selection.quietSince = now;
+        if (now - selection.quietSince >= this.releaseDurationMs) selection.needsRelease = false;
+      } else {
+        selection.quietSince = null;
+      }
+      return -1;
+    }
+    if (!enabled) {
+      this.resetCameraDwell(selection);
+      return -1;
+    }
+
+    // Dua zona sama kuat: tunggu pilihan yang jelas agar tidak salah jawab.
+    if (activeZones.length > 1 && activeZones[0].score - activeZones[1].score < 0.08) {
+      this.resetCameraDwell(selection);
+      return -1;
+    }
+    if (activeZones.length === 0) {
+      // Putus sinyal singkat hanya menjeda bar, tidak mengisi otomatis.
+      if (selection.lastSeenAt !== null && now - selection.lastSeenAt > this.dwellGraceMs) {
+        this.resetCameraDwell(selection);
+      }
+      return -1;
+    }
+
+    const target = activeZones[0].index;
+    const gapMs = selection.lastSeenAt === null ? Infinity : now - selection.lastSeenAt;
+    if (selection.dwellTarget !== target || gapMs > this.dwellGraceMs) {
+      this.resetCameraDwell(selection);
+      selection.dwellTarget = target;
+    } else {
+      // Hanya waktu sinyal aktif dihitung, tanpa bonus awal atau pengali.
+      selection.dwellProgress = Math.min(1, selection.dwellProgress +
+        Math.min(Math.max(0, dt * 1000), gapMs, 100) / this.dwellDurationMs);
+    }
+    selection.lastSeenAt = now;
+    if (selection.dwellProgress >= 1 - 1e-9) selection.dwellProgress = 1;
+    return selection.dwellProgress >= 1 ? target : -1;
+  }
+
+  renderCameraProgress(p, idx, globalSpike = false) {
+    for (let q = 0; q < 4; q++) {
+      const card = document.getElementById(`quad-p${idx}-${q}`);
+      const bar = document.getElementById(`quad-bar-p${idx}-${q}`);
+      if (!card || !bar) continue;
+      const active = p.dwellTarget === q && p.dwellProgress > 0;
+      card.classList.toggle("global-spike-warn", globalSpike);
+      card.classList.toggle("active-dwell", active);
+      bar.style.width = active ? `${Math.min(100, p.dwellProgress * 100)}%` : "0%";
+    }
+  }
+
   updateCalibrationMotion(dt) {
     const targetEl = document.getElementById("practice-target");
     if (!targetEl) return;
-    const rect = targetEl.getBoundingClientRect();
-    const analysis = this.detector.analyzeZones({ calib: [rect] });
-    const now = performance.now();
-
-    if (analysis.cameraActive && analysis.players.calib) {
-      const score = analysis.players.calib.scores[0] || 0;
-      if (score > 0.08) {
-        this.practiceLastMotionAt = now;
-      }
-      // Latch 1200ms: begitu tangan masuk ke zona uji, meskipun langsung diam, bar hijau dijamin naik sampai 100% penuh!
-      const isHoldingHand = (now - this.practiceLastMotionAt) < 1200;
-      if (score > 0.08 || (isHoldingHand && this.practiceDwell > 0)) {
-        const boost = Math.max(1.15, score * 1.8);
-        this.practiceDwell += dt * 1000 * boost;
-      } else {
-        this.practiceDwell = Math.max(0, this.practiceDwell - dt * 140);
-      }
-      const pct = Math.min(100, (this.practiceDwell / 220) * 100);
-      document.getElementById("practice-progress").style.width = `${pct}%`;
-      if (this.practiceDwell >= 220) {
-        this.practiceDwell = 0;
-        this.audio.playSfx("correct");
-        this.clearPracticeTimer();
-        this.startConfiguredSession();
-      }
+    const analysis = this.detector.analyzeZones({ calib: [targetEl.getBoundingClientRect()] });
+    const chosen = this.updateCameraSelection(this.practiceSelection,
+      analysis.cameraActive ? analysis.players.calib : null, performance.now(), dt);
+    document.getElementById("practice-progress").style.width =
+      `${this.practiceSelection.dwellProgress * 100}%`;
+    targetEl.classList.toggle("active-dwell", this.practiceSelection.dwellProgress > 0);
+    if (chosen !== -1) {
+      this.practiceSelection = this.createCameraSelection();
+      this.audio.playSfx("correct");
+      this.clearPracticeTimer();
+      this.startConfiguredSession();
     }
   }
 
   updateGameplayLoop(now, dt) {
-    // 0. Perbarui posisi Gelembung Jawaban Mengambang sebelum membaca bounding rect untuk deteksi tangan
     this.updateFloatingBubblesPhysics(dt, now);
 
-    // 1. Kumpulkan koordinat tampilan 4 gelembung mengambang untuk setiap pemain aktif
     const zoneRectsByPlayer = {};
     this.players.forEach((p, idx) => {
       if (p.finished) return;
@@ -2443,32 +2415,25 @@ class EcosystemQuadrantGame {
     });
 
     const motionResult = this.detector.analyzeZones(zoneRectsByPlayer);
-
-    // Update indikator pencahayaan & status detektor
     const lightEl = document.getElementById("lighting-indicator");
     if (lightEl) {
       if (!motionResult.cameraActive) {
         lightEl.textContent = "🖐️ Mode Sentuh/Keyboard (Kamera Off)";
         lightEl.className = "font-bold text-amber-300";
       } else if (motionResult.lighting === "dark") {
-        lightEl.textContent = "🌑 Pencahayaan Redup (Nyalakan Lampu/Gunakan Sentuh)";
+        lightEl.textContent = "🌑 Pencahayaan Redup";
         lightEl.className = "font-bold text-rose-400";
-      } else if (motionResult.lighting === "glare") {
-        lightEl.textContent = "☀️ Cahaya Terlalu Silau";
-        lightEl.className = "font-bold text-amber-300";
       } else {
-        lightEl.textContent = "☀️ Pencahayaan Optimal";
+        lightEl.textContent = "☀️ Pencahayaan Baik";
         lightEl.className = "font-bold text-emerald-300";
       }
     }
 
     let anyGlobalSpike = false;
 
-    // 2. Perbarui timer, fase baca, dan dwell time tiap pemain secara independen
     this.players.forEach((p, idx) => {
       if (p.finished) return;
 
-      // Sembunyikan banner feedback jika waktunya habis
       if (p.feedbackUntil && now > p.feedbackUntil) {
         const fbEl = document.getElementById(`vp-feedback-p${idx}`);
         if (fbEl) fbEl.classList.add("hidden");
@@ -2478,101 +2443,40 @@ class EcosystemQuadrantGame {
       const phaseEl = document.getElementById(`vp-phase-p${idx}`);
       const timerEl = document.getElementById(`vp-timer-p${idx}`);
 
-      // FASE BACA TERPISAH: hanya menghentikan timer soal, TIDAK mengunci input tangan/sentuhan!
       const isReadingPhase = now < p.readPhaseUntil;
       if (isReadingPhase) {
         if (phaseEl) {
-          phaseEl.textContent = "📖 FASE BACA (TIMER AMAN • BISA LANGSUNG PILIH)";
+          phaseEl.textContent = "📖 FASE BACA (TIMER AMAN)";
           phaseEl.className = "px-2 py-0.5 rounded bg-sky-600 text-white";
         }
       } else {
         if (phaseEl) {
-          phaseEl.textContent = "🫧 SENTUH GELEMBUNG DENGAN TANGAN!";
+          phaseEl.textContent = "🫧 TAHAN TANGAN DI GELEMBUNG!";
           phaseEl.className = "px-2 py-0.5 rounded bg-emerald-600 text-white";
         }
-        // Kurangi timer soal hanya setelah fase baca selesai
         p.questionTimeLeft = Math.max(0, p.questionTimeLeft - dt);
         if (timerEl) timerEl.textContent = `${p.questionTimeLeft.toFixed(1)}s`;
 
         if (p.questionTimeLeft <= 0) {
-          // Waktu habis -> dinilai salah dan lanjut soal berikutnya
           this.submitAnswer(idx, -1);
           return;
         }
       }
 
-      // Evaluasi gerakan tangan pada gelembung jika kamera aktif dan tidak sedang cooldown
       const pMotion = motionResult.players[idx];
-      if (pMotion && now >= p.cooldownUntil) {
-        if (pMotion.globalSpike) {
-          anyGlobalSpike = true;
-          p.dwellProgress = Math.max(0, p.dwellProgress - dt * 0.5);
-        } else {
-          // Catat waktu terakhir setiap gelembung menerima gerakan/kehadiran tangan
-          let bestQuad = -1;
-          let bestScore = 0.08; // Sangat sensitif begitu ujung tangan masuk gelembung
-          for (let q = 0; q < 4; q++) {
-            if (pMotion.scores[q] > 0.08) {
-              p.lastZoneMotionAt[q] = now;
-            }
-            if (pMotion.scores[q] > bestScore) {
-              bestScore = pMotion.scores[q];
-              bestQuad = q;
-            }
-          }
-
-          // KUNCI UTAMA (AUTO-COMPLETE HOLD LATCH 1100ms):
-          // Begitu tangan sudah masuk ke sebuah gelembung (dwellProgress > 0) dan diam menahan,
-          // pertahankan pengisian gelembung tersebut sampai 100% penuh tanpa putus di tengah jalan!
-          if (p.dwellTarget !== -1 && p.dwellProgress > 0) {
-            const sinceTargetTouched = now - (p.lastZoneMotionAt[p.dwellTarget] || 0);
-            const currentTargetScore = pMotion.scores[p.dwellTarget] || 0;
-            // Tetap fokus mengisi gelembung saat ini kecuali tangan benar-benar pindah kuat ke gelembung lain
-            const switchedStronglyToOther = (bestQuad !== -1 && bestQuad !== p.dwellTarget && bestScore > 0.65 && currentTargetScore < 0.15);
-            if (!switchedStronglyToOther && sinceTargetTouched < 1100) {
-              bestQuad = p.dwellTarget;
-              bestScore = Math.max(bestScore, 0.75);
-            }
-          }
-
-          if (bestQuad !== -1) {
-            // Laju pengisian konsisten & cepat agar bar hijau langsung penuh tanpa tersendat
-            const fillMultiplier = Math.max(1.15, Math.min(2.0, bestScore * 2.0));
-            const step = ((dt * 1000) / this.dwellDurationMs) * fillMultiplier;
-
-            if (p.dwellTarget === bestQuad) {
-              p.dwellProgress += step;
-            } else {
-              p.dwellTarget = bestQuad;
-              p.dwellProgress = Math.max(0.18, step); // Langsung beri progres awal yang terlihat jelas
-            }
-
-            if (p.dwellProgress >= 1.0) {
-              this.submitAnswer(idx, p.dwellTarget);
-              return;
-            }
-          } else {
-            // Peluruhan sangat lembut jika tangan ditarik keluar sebelum selesai
-            p.dwellProgress = Math.max(0, p.dwellProgress - dt * 0.45);
-            if (p.dwellProgress === 0) p.dwellTarget = -1;
-          }
-        }
+      if (pMotion?.globalSpike) anyGlobalSpike = true;
+      const chosen = this.updateCameraSelection(p,
+        motionResult.cameraActive ? pMotion : null, now, dt,
+        !isReadingPhase && now >= p.cooldownUntil);
+      if (!isReadingPhase && p.needsRelease && phaseEl) {
+        phaseEl.textContent = "🖐️ TURUNKAN TANGAN SEBENTAR";
+      } else if (!isReadingPhase && phaseEl) {
+        phaseEl.textContent = "🫧 TAHAN TANGAN 1,5 DETIK";
       }
-
-      // Render visual bar dwell pada masing-masing kartu kuadran
-      for (let q = 0; q < 4; q++) {
-        const cardEl = document.getElementById(`quad-p${idx}-${q}`);
-        const barEl = document.getElementById(`quad-bar-p${idx}-${q}`);
-        if (!cardEl || !barEl) continue;
-
-        cardEl.classList.toggle("global-spike-warn", Boolean(pMotion?.globalSpike));
-        if (p.dwellTarget === q && p.dwellProgress > 0) {
-          cardEl.classList.add("active-dwell");
-          barEl.style.width = `${Math.min(100, p.dwellProgress * 100)}%`;
-        } else {
-          cardEl.classList.remove("active-dwell");
-          barEl.style.width = "0%";
-        }
+      this.renderCameraProgress(p, idx, Boolean(pMotion?.globalSpike));
+      if (chosen !== -1) {
+        this.submitAnswer(idx, chosen);
+        return;
       }
     });
 
@@ -2581,7 +2485,6 @@ class EcosystemQuadrantGame {
       spikeAlert.classList.toggle("hidden", !anyGlobalSpike);
     }
 
-    // 3. Perbarui Lawan Virtual COM (Tanpa tangan palsu, memakai target/progres virtual berlabel)
     if (this.comState && this.comState.qIndex < this.comState.totalQ) {
       if (now >= this.comState.nextActionAt) {
         const isComCorrect = Math.random() < this.comState.accuracy;
@@ -2596,15 +2499,11 @@ class EcosystemQuadrantGame {
             : `COM meleset pada Soal ${this.comState.qIndex}/${this.comState.totalQ}`;
         }
         document.getElementById("hud-p2-score").textContent = `${this.comState.score} Poin`;
-        // Jadwalkan reaksi COM berikutnya (4.8 - 6.5 detik)
-        this.comState.nextActionAt = now + 4800 + Math.random() * 1700;
+        this.comState.nextActionAt = now + 5200 + Math.random() * 1800;
       }
     }
   }
 
-  /* ==========================================================================
-     RENDER EDITOR BANK 75 SOAL
-     ========================================================================== */
   renderEditorList(filterDiff = "ALL") {
     const container = document.getElementById("editor-list-container");
     if (!container) return;
@@ -2642,14 +2541,10 @@ class EcosystemQuadrantGame {
       </div>
     `).join("");
 
-    // Simpan perubahan langsung saat diedit guru
     container.querySelectorAll(".editor-input").forEach(inp => {
       inp.addEventListener("change", () => {
         const item = this.questionBank.find(x => x.id === inp.dataset.id);
-        if (item) {
-          item.question = inp.value.trim();
-          this.saveBank();
-        }
+        if (item) { item.question = inp.value.trim(); this.saveBank(); }
       });
     });
 
