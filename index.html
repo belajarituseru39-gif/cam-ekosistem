@@ -264,12 +264,12 @@
         <div class="mt-4 grid grid-cols-1 md:grid-cols-2 gap-4 items-center">
           <div class="space-y-2 text-sm md:text-base">
             <p id="calib-desc" class="text-emerald-100 leading-relaxed">
-              Posisikan wajah di area tengah layar, lalu arahkan dan tahan satu tangan di atas <strong>Gelembung Uji Mengambang</strong> selama 0,55 detik hingga cincin penuh!
+              Posisikan wajah di area tengah layar, lalu arahkan tangan ke atas <strong>Gelembung Uji Mengambang</strong> selama 0,3 detik (atau langsung sentuh/klik) hingga cincin penuh!
             </p>
             <ul class="text-xs md:text-sm space-y-1.5 text-amber-100 bg-black/40 p-3 rounded-xl border border-white/10">
-              <li>✅ <strong>Gelembung Mengambang Aman Wajah:</strong> Gelembung bergerak lembut mengelilingi tepi dan otomatis menghindari area wajah di tengah layar.</li>
+              <li>✅ <strong>Respons Cepat & Anti-Putus:</strong> Begitu tangan masuk ke gelembung, indikator langsung terisi cepat meskipun tangan berhenti bergoyang sejenak.</li>
               <li>🪑 <strong>Mode Duduk Aktif:</strong> Orbit gelembung ditarik lebih dekat ke jangkauan tangan sambil duduk santai.</li>
-              <li>⌨️ <strong>Tanpa Kamera?</strong> Kamu tetap bisa memilih gelembung dengan Sentuhan, Mouse, atau Keyboard!</li>
+              <li>⌨️ <strong>Tanpa Kamera?</strong> Klik/Sentuh langsung gelembung untuk memilih seketika tanpa menunggu loading!</li>
             </ul>
           </div>
 
@@ -348,7 +348,7 @@
 
       <!-- BAR BAWAH SANGAT RINGKAS (Petunjuk Kontrol & Postur) -->
       <footer class="interactive-el w-full bg-slate-950/75 px-3 py-1 flex items-center justify-between text-[11px] md:text-xs text-emerald-200 border-t border-white/15 z-20">
-        <span id="footer-control-hint">💡 Arahkan tangan ke Gelembung Jawaban Mengambang (tahan 0,55 dtk) atau Sentuh/Tekan Q,W,A,S.</span>
+        <span id="footer-control-hint">💡 Sentuh gelembung dengan tangan di kamera (0,3 dtk) atau Klik/Sentuh layar & tombol Q,W,A,S.</span>
         <div class="flex items-center gap-3">
           <button id="btn-switch-posture-live" class="underline font-bold text-amber-300 hover:text-amber-200 cursor-pointer">
             🪑 Ubah Mode Duduk/Berdiri
@@ -465,9 +465,9 @@
           <button id="btn-close-guide" class="btn-game bg-slate-800 text-xs px-3 min-h-[40px]">✖ Tutup</button>
         </div>
         <div class="space-y-3 text-sm text-emerald-100 leading-relaxed">
-          <p><strong>1. Fase Baca Aman (Timer Berhenti):</strong> Setiap soal baru akan muncul di bagian atas. Saat Fase Baca aktif, timer berhenti dan gelembung jawaban bergerak tenang agar kamu dapat memahami soal rantai makanan terlebih dahulu.</p>
-          <p><strong>2. Gelembung Mengambang — Pilih dengan Tangan:</strong> Empat gelembung jawaban (A, B, C, D) melayang lembut di sekitar tepi layar tanpa menutupi wajahmu. Arahkan dan lambaikan tangan tepat pada gelembung yang benar selama <strong>0,55 detik (Dwell Time)</strong> hingga indikatornya penuh.</p>
-          <p><strong>3. Anti-Curang Gerak Seluruh Tubuh:</strong> Jika kamu melompat atau menggoyangkan seluruh badan sehingga 3–4 gelembung terkena gerakan serentak, sistem otomatis menahan pengisian agar tidak salah pilih.</p>
+          <p><strong>1. Fase Baca Aman (Bisa Langsung Jawab!):</strong> Saat soal baru muncul, waktu hitung mundur berhenti sejenak agar kamu tidak terburu-buru. Namun jika kamu sudah tahu jawabannya, kamu bisa <strong>langsung memilih gelembung tanpa harus menunggu Fase Baca selesai</strong>.</p>
+          <p><strong>2. Gelembung Mengambang — Respons Tangan Cepat:</strong> Empat gelembung jawaban (A, B, C, D) melayang lembut di sekitar tepi layar. Arahkan tanganmu ke gelembung yang benar selama <strong>0,32 detik</strong> hingga indikatornya penuh. Kamu juga bisa langsung mengklik/menyentuh layar secara instan.</p>
+          <p><strong>3. Anti-Curang Gerak Seluruh Tubuh:</strong> Jika kamu melompat atau menggoyangkan seluruh badan sehingga semua gelembung terkena gerakan kuat serentak, sistem otomatis menahan pengisian agar tidak salah pilih.</p>
           <p><strong>4. Mode Aksesibilitas Duduk:</strong> Pilih <em>Mode Duduk</em> di menu utama atau di bar bawah agar lintasan mengambang gelembung ditarik lebih rapat ke jangkauan tangan sambil duduk.</p>
           <p><strong>5. Mode Duel 2 Pemain Serentak:</strong> Satu kamera dibagi menjadi Area Kiri (Pemain 1 - Raka) dan Area Kanan (Pemain 2 - Kesatria Arka). Masing-masing pemain memiliki gelembung mengambang, soal, dan skor mandiri!</p>
         </div>
@@ -1349,14 +1349,18 @@ class FrameDiffQuadrantDetector {
 
       for (let z = 0; z < zones.length; z++) {
         const rect = zones[z];
-        const x0 = Math.max(0, Math.floor((rect.left / screenW) * this.procWidth));
-        const x1 = Math.min(this.procWidth - 1, Math.ceil((rect.right / screenW) * this.procWidth));
-        const y0 = Math.max(0, Math.floor((rect.top / screenH) * this.procHeight));
-        const y1 = Math.min(this.procHeight - 1, Math.ceil((rect.bottom / screenH) * this.procHeight));
+        // Perluas sedikit area tangkap tangan (padding 8px layar) agar pinggiran gelembung mudah merespons
+        const padX = 8;
+        const padY = 8;
+        const x0 = Math.max(0, Math.floor(((rect.left - padX) / screenW) * this.procWidth));
+        const x1 = Math.min(this.procWidth - 1, Math.ceil(((rect.right + padX) / screenW) * this.procWidth));
+        const y0 = Math.max(0, Math.floor(((rect.top - padY) / screenH) * this.procHeight));
+        const y1 = Math.min(this.procHeight - 1, Math.ceil(((rect.bottom + padY) / screenH) * this.procHeight));
 
         let changedPixels = 0;
+        let weightedMotion = 0;
         let totalPixels = 0;
-        const pixelDiffThreshold = 26; // sensitivitas perubahan intensitas piksel
+        const pixelDiffThreshold = 15; // Jauh lebih peka terhadap gerakan tangan kecil/jari
 
         for (let y = y0; y <= y1; y++) {
           for (let x = x0; x <= x1; x++) {
@@ -1364,22 +1368,24 @@ class FrameDiffQuadrantDetector {
             const dR = Math.abs(curr[idx] - prev[idx]);
             const dG = Math.abs(curr[idx + 1] - prev[idx + 1]);
             const dB = Math.abs(curr[idx + 2] - prev[idx + 2]);
-            if ((dR + dG + dB) / 3 > pixelDiffThreshold) {
+            const diff = (dR + dG + dB) / 3;
+            if (diff > pixelDiffThreshold) {
               changedPixels++;
+              weightedMotion += Math.min(2.5, diff / 28);
             }
             totalPixels++;
           }
         }
 
-        const ratio = totalPixels > 0 ? changedPixels / totalPixels : 0;
-        // Normalisasi: gerakan 7% area kuadran sudah dianggap 1.0 penuh
-        const normScore = Math.min(1, ratio / 0.075);
+        const ratio = totalPixels > 0 ? weightedMotion / totalPixels : 0;
+        // Normalisasi lebih responsif: gerakan ringan tangan (~2.2% area) sudah mencapai skor penuh 1.0
+        const normScore = Math.min(1, ratio / 0.022);
         scores.push(normScore);
-        if (normScore > 0.36) activeZonesCount++;
+        if (normScore > 0.65) activeZonesCount++;
       }
 
-      // ATURAN INTI: Gerak seluruh tubuh yang mengenai banyak zona (>=3 zona)
-      // tidak boleh langsung memberi banyak jawaban!
+      // ATURAN INTI: Gerak seluruh tubuh yang mengguncang >=3 zona secara serentak & sangat kuat
+      // tidak boleh langsung memilih banyak jawaban
       const isGlobalBodySpike = zones.length >= 4 && activeZonesCount >= 3;
       result.players[playerKey] = {
         scores,
@@ -1458,12 +1464,13 @@ class EcosystemQuadrantGame {
     this.tourneyState = null;   // State giliran untuk 4 Pemain Lomba
     this.sessionHistory = [];   // Catatan jawaban untuk pembahasan akhir
 
-    this.dwellDurationMs = 550; // Waktu tahan tangan di kuadran (0.55 detik)
-    this.cooldownMs = 1100;     // Cooldown antar jawaban
-    this.readPhaseMs = 2600;    // Fase baca aman tanpa timer
+    this.dwellDurationMs = 320; // Waktu tahan tangan cepat & responsif (0.32 detik)
+    this.cooldownMs = 650;      // Cooldown singkat antar soal agar tidak terasa terkunci
+    this.readPhaseMs = 2000;    // Fase baca aman (timer berhenti, tetapi pemain sudah bisa langsung menjawab!)
 
     this.pointerMap = new Map(); // Map<pointerId, { playerIdx, quadIdx }>
     this.practiceDwell = 0;
+    this.practiceLastMotionAt = 0;
     this.practiceAutoTimer = null;
     this.lastFrameTime = performance.now();
 
@@ -1743,7 +1750,7 @@ class EcosystemQuadrantGame {
         "<strong>Duel 2 Pemain Serentak:</strong> Berdirilah/duduk berdampingan! <strong>Pemain 1 (Raka) di sisi Kiri</strong> dan <strong>Pemain 2 (Kesatria Arka) di sisi Kanan</strong> memilih gelembung mengambang di zona masing-masing.";
     } else {
       document.getElementById("calib-desc").innerHTML =
-        "Posisikan wajah di tengah, lalu gerakkan satu tangan pada <strong>Gelembung Uji</strong> selama 0,55 detik (atau sentuh/klik tombol) untuk mulai bermain!";
+        "Posisikan wajah di tengah, lalu arahkan satu tangan ke <strong>Gelembung Uji</strong> selama 0,3 detik (atau langsung klik/sentuh tombol) untuk mulai bermain!";
     }
 
     await this.requestCameraAndUpdateUI();
@@ -1867,7 +1874,8 @@ class EcosystemQuadrantGame {
       finished: false,
       dwellTarget: -1,
       dwellProgress: 0, // 0..1
-      cooldownUntil: now + 600,
+      lastZoneMotionAt: [0, 0, 0, 0], // Grace window agar saat tangan berhenti di dalam gelembung, loading tetap lanjut
+      cooldownUntil: now + 250,
       readPhaseUntil: now + this.readPhaseMs,
       questionTimeLeft: 18.0,
       feedbackBanner: null,
@@ -2020,11 +2028,11 @@ class EcosystemQuadrantGame {
         const bWidth = el.offsetWidth || 160;
         const bHeight = el.offsetHeight || 96;
 
-        // Jika pemain sedang menahan tangan (dwell) pada gelembung ini, perlambat gerak agar tidak lepas
-        const isDwellingThis = (p.dwellTarget === qIdx && p.dwellProgress > 0.05);
-        const speedFactor = prefersReduced ? 0 : (isDwellingThis ? 0.18 : 1.0);
+        // Jika pemain sedang menahan tangan (dwell) pada gelembung ini, kunci/hentikan gerak gelembung agar mudah dipilih
+        const isDwellingThis = (p.dwellTarget === qIdx && p.dwellProgress > 0.04);
+        const speedFactor = prefersReduced ? 0 : (isDwellingThis ? 0.0 : 0.85);
 
-        b.phase += dt * 1.35 * speedFactor;
+        b.phase += dt * 1.15 * speedFactor;
 
         const anchor = anchors[qIdx];
         let targetX = anchor.x + Math.cos(b.phase + qIdx) * orbitRadiusX;
@@ -2041,9 +2049,11 @@ class EcosystemQuadrantGame {
           targetY += dyCenter * push;
         }
 
-        // Interpolasi halus menuju posisi orbit
-        b.x += (targetX - b.x) * Math.min(1, dt * 6);
-        b.y += (targetY - b.y) * Math.min(1, dt * 6);
+        // Saat tangan sedang memilih gelembung ini, jangan pindahkan posisinya agar tidak lari dari tangan/kursor
+        if (!isDwellingThis) {
+          b.x += (targetX - b.x) * Math.min(1, dt * 5);
+          b.y += (targetY - b.y) * Math.min(1, dt * 5);
+        }
 
         // Clamp ke dalam batas aman arena pemain
         const halfWRatio = (bWidth / 2 + 8) / wRect.width;
@@ -2053,14 +2063,14 @@ class EcosystemQuadrantGame {
 
         const px = clampedX * wRect.width - bWidth / 2;
         const py = clampedY * wRect.height - bHeight / 2;
-        const scale = isDwellingThis ? 1.05 : 1.0;
+        const scale = isDwellingThis ? 1.06 : 1.0;
 
         el.style.transform = `translate3d(${px.toFixed(1)}px, ${py.toFixed(1)}px, 0) scale(${scale})`;
       });
     });
   }
 
-  // Pointer Events dengan Map<pointerId, {playerIdx, quadIdx}> untuk sentuhan serentak independen
+  // Pointer Events & Click: Mendukung sentuhan/klik langsung secara instan tanpa tertahan animasi
   bindQuadrantPointerEvents() {
     document.querySelectorAll(".floating-bubble[data-player]").forEach(card => {
       const pIdx = Number(card.dataset.player);
@@ -2068,7 +2078,13 @@ class EcosystemQuadrantGame {
 
       card.addEventListener("pointerdown", (e) => {
         e.preventDefault();
+        e.stopPropagation();
         this.pointerMap.set(e.pointerId, { pIdx, qIdx });
+        // Klik atau sentuhan layar langsung mengeksekusi jawaban secara instan (bypass cooldown sisa jika >200ms)
+        const p = this.players[pIdx];
+        if (p && performance.now() >= p.cooldownUntil - 350) {
+          p.cooldownUntil = 0;
+        }
         this.submitAnswer(pIdx, qIdx);
       });
 
@@ -2196,6 +2212,7 @@ class EcosystemQuadrantGame {
     } else {
       p.readPhaseUntil = now + this.readPhaseMs;
       p.questionTimeLeft = 18.0;
+      p.lastZoneMotionAt = [0, 0, 0, 0];
       this.refreshAllPlayerHUDs();
     }
   }
@@ -2355,17 +2372,24 @@ class EcosystemQuadrantGame {
     if (!targetEl) return;
     const rect = targetEl.getBoundingClientRect();
     const analysis = this.detector.analyzeZones({ calib: [rect] });
+    const now = performance.now();
 
     if (analysis.cameraActive && analysis.players.calib) {
       const score = analysis.players.calib.scores[0] || 0;
-      if (score > 0.35) {
-        this.practiceDwell += dt * 1000;
-      } else {
-        this.practiceDwell = Math.max(0, this.practiceDwell - dt * 600);
+      if (score > 0.14) {
+        this.practiceLastMotionAt = now;
       }
-      const pct = Math.min(100, (this.practiceDwell / 600) * 100);
+      // Grace window 380ms: ketika tangan masuk lalu berhenti bergerak di dalam kotak uji, progres tetap naik!
+      const isHoldingHand = (now - this.practiceLastMotionAt) < 380;
+      if (score > 0.14 || (isHoldingHand && this.practiceDwell > 0)) {
+        const boost = Math.max(0.85, score * 1.45);
+        this.practiceDwell += dt * 1000 * boost;
+      } else {
+        this.practiceDwell = Math.max(0, this.practiceDwell - dt * 260);
+      }
+      const pct = Math.min(100, (this.practiceDwell / 320) * 100);
       document.getElementById("practice-progress").style.width = `${pct}%`;
-      if (this.practiceDwell >= 600) {
+      if (this.practiceDwell >= 320) {
         this.practiceDwell = 0;
         this.audio.playSfx("correct");
         this.clearPracticeTimer();
@@ -2426,62 +2450,84 @@ class EcosystemQuadrantGame {
       const phaseEl = document.getElementById(`vp-phase-p${idx}`);
       const timerEl = document.getElementById(`vp-timer-p${idx}`);
 
-      // FASE BACA TERPISAH: menghentikan timer soal!
-      if (now < p.readPhaseUntil) {
+      // FASE BACA TERPISAH: hanya menghentikan timer soal, TIDAK mengunci input tangan/sentuhan!
+      const isReadingPhase = now < p.readPhaseUntil;
+      if (isReadingPhase) {
         if (phaseEl) {
-          phaseEl.textContent = "📖 FASE BACA (TIMER BERHENTI)";
+          phaseEl.textContent = "📖 FASE BACA (TIMER AMAN • BISA LANGSUNG PILIH)";
           phaseEl.className = "px-2 py-0.5 rounded bg-sky-600 text-white";
         }
-        return;
       } else {
         if (phaseEl) {
           phaseEl.textContent = "🫧 SENTUH GELEMBUNG DENGAN TANGAN!";
           phaseEl.className = "px-2 py-0.5 rounded bg-emerald-600 text-white";
         }
+        // Kurangi timer soal hanya setelah fase baca selesai
+        p.questionTimeLeft = Math.max(0, p.questionTimeLeft - dt);
+        if (timerEl) timerEl.textContent = `${p.questionTimeLeft.toFixed(1)}s`;
+
+        if (p.questionTimeLeft <= 0) {
+          // Waktu habis -> dinilai salah dan lanjut soal berikutnya
+          this.submitAnswer(idx, -1);
+          return;
+        }
       }
 
-      // Kurangi timer soal
-      p.questionTimeLeft = Math.max(0, p.questionTimeLeft - dt);
-      if (timerEl) timerEl.textContent = `${p.questionTimeLeft.toFixed(1)}s`;
-
-      if (p.questionTimeLeft <= 0) {
-        // Waktu habis -> dinilai salah dan lanjut soal berikutnya
-        this.submitAnswer(idx, -1);
-        return;
-      }
-
-      // Evaluasi gerakan kuadran jika kamera aktif dan tidak sedang cooldown
+      // Evaluasi gerakan tangan pada gelembung jika kamera aktif dan tidak sedang cooldown
       const pMotion = motionResult.players[idx];
       if (pMotion && now >= p.cooldownUntil) {
         if (pMotion.globalSpike) {
           anyGlobalSpike = true;
-          // Batalkan penambahan dwell saat seluruh tubuh bergoyang
-          p.dwellProgress = Math.max(0, p.dwellProgress - dt * 1.5);
+          // Saat seluruh tubuh melompat/bergoyang serentak, tahan progres sedikit tanpa langsung mereset ke 0
+          p.dwellProgress = Math.max(0, p.dwellProgress - dt * 0.9);
         } else {
-          // Cari kuadran dengan gerakan tertinggi di zona pemilik
+          // Catat waktu terakhir setiap gelembung menerima gerakan tangan
           let bestQuad = -1;
-          let bestScore = 0.35; // ambang minimum gerak tangan
+          let bestScore = 0.14; // Ambang masuk tangan yang jauh lebih responsif
           for (let q = 0; q < 4; q++) {
+            if (pMotion.scores[q] > 0.14) {
+              p.lastZoneMotionAt[q] = now;
+            }
             if (pMotion.scores[q] > bestScore) {
               bestScore = pMotion.scores[q];
               bestQuad = q;
             }
           }
 
+          // Jika tangan sudah masuk ke gelembung dan sedang diam menahan (Grace Window 400ms),
+          // pertahankan target gelembung tersebut agar bar loading terus naik sampai penuh!
+          if (bestQuad === -1 && p.dwellTarget !== -1 && p.dwellProgress > 0) {
+            const sinceLastMotion = now - (p.lastZoneMotionAt[p.dwellTarget] || 0);
+            if (sinceLastMotion < 400) {
+              bestQuad = p.dwellTarget;
+              bestScore = 0.55;
+            }
+          }
+
           if (bestQuad !== -1) {
+            // Kecepatan isi proporsional dengan gerakan tangan (minimal 1x kecepatan penuh, hingga 1.6x jika gerakan jelas)
+            const fillMultiplier = Math.max(1.0, Math.min(1.65, bestScore * 1.8));
+            const step = ((dt * 1000) / this.dwellDurationMs) * fillMultiplier;
+
             if (p.dwellTarget === bestQuad) {
-              p.dwellProgress += (dt * 1000) / this.dwellDurationMs;
+              p.dwellProgress += step;
             } else {
-              p.dwellTarget = bestQuad;
-              p.dwellProgress = (dt * 1000) / this.dwellDurationMs;
+              // Hanya berpindah target jika target baru jauh lebih kuat atau target lama sudah turun
+              if (p.dwellProgress < 0.35 || bestScore > 0.45) {
+                p.dwellTarget = bestQuad;
+                p.dwellProgress = step;
+              } else {
+                p.dwellProgress += step * 0.7;
+              }
             }
 
             if (p.dwellProgress >= 1.0) {
-              this.submitAnswer(idx, bestQuad);
+              this.submitAnswer(idx, p.dwellTarget);
               return;
             }
           } else {
-            p.dwellProgress = Math.max(0, p.dwellProgress - dt * 1.8);
+            // Peluruhan (decay) dibuat lembut agar bar tidak langsung hilang saat gerakan tangan jeda sejenak
+            p.dwellProgress = Math.max(0, p.dwellProgress - dt * 0.85);
             if (p.dwellProgress === 0) p.dwellTarget = -1;
           }
         }
