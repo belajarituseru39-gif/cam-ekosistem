@@ -264,10 +264,17 @@
         <div class="mt-4 grid grid-cols-1 md:grid-cols-2 gap-4 items-center">
           <div class="space-y-2 text-sm md:text-base">
             <p id="calib-desc" class="text-emerald-100 leading-relaxed">
-              Posisikan wajah di area tengah layar, lalu arahkan tangan ke atas <strong>Gelembung Uji Mengambang</strong> dan tahan sekitar 1,5 detik hingga bar hijau penuh.
+              Posisikan wajah di area tengah layar, lalu arahkan tangan ke atas <strong>Gelembung Uji Mengambang</strong> dan tahan sekitar 2 detik hingga bar hijau penuh.
             </p>
+            <label for="camera-sensitivity" class="block text-sm font-bold text-amber-200">Kepekaan kamera</label>
+            <select id="camera-sensitivity" class="w-full bg-emerald-950 text-white rounded-lg p-2 border border-emerald-500">
+              <option value="0.24" selected>Rendah — lebih aman dari salah pilih</option>
+              <option value="0.36">Sangat rendah — perlu telapak lebih dekat ke tengah</option>
+              <option value="0.16">Sedang — jika tangan sulit terbaca</option>
+            </select>
+            <p class="text-xs text-emerald-200">Turunkan tangan saat kamera dinyalakan. Arahkan telapak ke tengah gelembung, tahan 2 detik. Untuk mengambil ulang latar, turunkan tangan lalu tekan Muat Ulang Kamera.</p>
             <ul class="text-xs md:text-sm space-y-1.5 text-amber-100 bg-black/40 p-3 rounded-xl border border-white/10">
-              <li>✅ <strong>Tahan untuk Memilih:</strong> Arahkan satu tangan ke gelembung selama sekitar 1,5 detik. Bar hanya bertambah selama area tersebut terdeteksi aktif. Tarik tangan untuk membatalkan atau sebelum memilih jawaban berikutnya.</li>
+              <li>✅ <strong>Tahan untuk Memilih:</strong> Arahkan satu tangan ke gelembung selama sekitar 2 detik. Bar hanya bertambah selama area tersebut terdeteksi aktif. Tarik tangan untuk membatalkan atau sebelum memilih jawaban berikutnya.</li>
               <li>🪑 <strong>Mode Duduk Aktif:</strong> Orbit gelembung ditarik lebih dekat ke jangkauan tangan sambil duduk santai.</li>
               <li>⌨️ <strong>Tanpa Kamera?</strong> Klik/Sentuh langsung gelembung untuk memilih seketika tanpa menunggu loading!</li>
             </ul>
@@ -282,7 +289,7 @@
               <div class="w-4/5 h-3 bg-slate-800 rounded-full mt-3 overflow-hidden border border-white/20">
                 <div id="practice-progress" class="h-full bg-emerald-400 transition-all duration-75" style="width: 0%;"></div>
               </div>
-              <span id="practice-timer-label" class="text-xs text-emerald-200 mt-2">Tahan tangan 1,5 detik atau klik untuk mulai.</span>
+              <span id="practice-timer-label" class="text-xs text-emerald-200 mt-2">Tahan tangan 2 detik atau klik untuk mulai.</span>
             </div>
           </div>
         </div>
@@ -348,7 +355,7 @@
 
       <!-- BAR BAWAH SANGAT RINGKAS (Petunjuk Kontrol & Postur) -->
       <footer class="interactive-el w-full bg-slate-950/75 px-3 py-1.5 flex items-center justify-between text-[11px] md:text-xs text-emerald-200 border-t border-white/15 z-20">
-        <span id="footer-control-hint">💡 Tahan tangan di dalam gelembung stabil (1,5 dtk) atau klik layar & tombol Q,W,A,S.</span>
+        <span id="footer-control-hint">💡 Tahan tangan di dalam gelembung stabil (2 dtk) atau klik layar & tombol Q,W,A,S.</span>
         <div class="flex items-center gap-3">
           <button id="btn-switch-posture-live" class="underline font-bold text-amber-300 hover:text-amber-200 cursor-pointer">
             🪑 Ubah Mode Duduk/Berdiri
@@ -466,7 +473,7 @@
         </div>
         <div class="space-y-3 text-sm text-emerald-100 leading-relaxed">
           <p><strong>1. Fase Baca Aman (Bisa Langsung Jawab!):</strong> Saat soal baru muncul, waktu hitung mundur berhenti sejenak agar kamu tidak terburu-buru. Namun jika kamu sudah tahu jawabannya, kamu bisa <strong>langsung memilih gelembung tanpa harus menunggu Fase Baca selesai</strong>.</p>
-          <p><strong>2. Gelembung Mengambang — Tahan untuk Memilih:</strong> Empat gelembung jawaban (A, B, C, D) melayang lembut di sekitar tepi layar. Arahkan tanganmu ke gelembung yang benar selama <strong>1,5 detik</strong> hingga indikatornya penuh. Tarik tangan jika ingin membatalkan. Setelah menjawab, turunkan tangan sebentar dan tunggu fase baca selesai sebelum memilih lagi. Kamu juga bisa langsung mengklik/menyentuh layar secara instan.</p>
+          <p><strong>2. Gelembung Mengambang — Tahan untuk Memilih:</strong> Empat gelembung jawaban (A, B, C, D) melayang lembut di sekitar tepi layar. Arahkan tanganmu ke gelembung yang benar selama <strong>2 detik</strong> hingga indikatornya penuh. Tarik tangan jika ingin membatalkan. Setelah menjawab, turunkan tangan sebentar dan tunggu fase baca selesai sebelum memilih lagi. Kamu juga bisa langsung mengklik/menyentuh layar secara instan.</p>
           <p><strong>3. Anti-Curang Gerak Seluruh Tubuh:</strong> Jika kamu melompat atau menggoyangkan seluruh badan sehingga semua gelembung terkena gerakan kuat serentak, sistem otomatis menahan pengisian agar tidak salah pilih.</p>
           <p><strong>4. Mode Aksesibilitas Duduk:</strong> Pilih <em>Mode Duduk</em> di menu utama atau di bar bawah agar lintasan mengambang gelembung ditarik lebih rapat ke jangkauan tangan sambil duduk.</p>
           <p><strong>5. Mode Duel 2 Pemain Serentak:</strong> Satu kamera dibagi menjadi Area Kiri (Pemain 1 - Raka) dan Area Kanan (Pemain 2 - Kesatria Arka). Masing-masing pemain memiliki gelembung mengambang, soal, dan skor mandiri!</p>
@@ -1347,6 +1354,26 @@ class FrameDiffQuadrantDetector {
     else this.lightingStatus = "good";
     result.lighting = this.lightingStatus;
 
+    // Median perubahan RGB menolak perubahan cahaya yang merata pada seluruh gambar.
+    const bgShift = this.medianFrameShift(curr, bg);
+    const prevShift = this.medianFrameShift(curr, prev);
+    const foreground = new Uint8Array(this.procWidth * this.procHeight);
+    const moving = new Uint8Array(foreground.length);
+    let movingPixels = 0;
+    for (let pixel = 0; pixel < foreground.length; pixel++) {
+      const i = pixel * 4;
+      let presenceDiff = 0;
+      let motionDiff = 0;
+      for (let c = 0; c < 3; c++) {
+        presenceDiff += Math.abs(curr[i + c] - bg[i + c] - bgShift[c]);
+        motionDiff += Math.abs(curr[i + c] - prev[i + c] - prevShift[c]);
+      }
+      foreground[pixel] = presenceDiff / 3 > 40 ? 1 : 0;
+      moving[pixel] = motionDiff / 3 > 30 ? 1 : 0;
+      movingPixels += moving[pixel];
+    }
+    const wholeFrameMoving = movingPixels / foreground.length > 0.45;
+
     for (const [playerKey, zones] of Object.entries(zoneRectsByPlayer)) {
       const scores = [];
       let extremeZonesCount = 0;
@@ -1354,70 +1381,86 @@ class FrameDiffQuadrantDetector {
       for (let z = 0; z < zones.length; z++) {
         const rect = zones[z];
         // Bagian dalam gelembung: gerakan lewat di tepi lebih mudah diabaikan.
-        const padX = Math.min(8, rect.width * 0.08);
-        const padY = Math.min(8, rect.height * 0.08);
+        const padX = rect.width * 0.18;
+        const padY = rect.height * 0.18;
         const x0 = Math.max(0, Math.floor(((rect.left + padX - imageLeft) / imageW) * this.procWidth));
         const x1 = Math.min(this.procWidth - 1, Math.ceil(((rect.right - padX - imageLeft) / imageW) * this.procWidth));
         const y0 = Math.max(0, Math.floor(((rect.top + padY - imageTop) / imageH) * this.procHeight));
         const y1 = Math.min(this.procHeight - 1, Math.ceil(((rect.bottom - padY - imageTop) / imageH) * this.procHeight));
 
-        let weightedMotion = 0;
-        let weightedPresence = 0;
-        let totalPixels = 0;
-        // Ambang dinaikkan agar tidak terlalu sensitif terhadap noise atau gerakan kecil di udara
-        const motionThreshold = 18;
-        const presenceThreshold = 30;
-
+        const width = Math.max(0, x1 - x0 + 1);
+        const height = Math.max(0, y1 - y0 + 1);
+        const totalPixels = width * height;
+        const mask = new Uint8Array(totalPixels);
+        let motionPixels = 0;
         for (let y = y0; y <= y1; y++) {
           for (let x = x0; x <= x1; x++) {
-            const idx = (y * this.procWidth + x) * 4;
-            const dR = Math.abs(curr[idx] - prev[idx]);
-            const dG = Math.abs(curr[idx + 1] - prev[idx + 1]);
-            const dB = Math.abs(curr[idx + 2] - prev[idx + 2]);
-            const diffMotion = (dR + dG + dB) / 3;
-            if (diffMotion > motionThreshold) {
-              weightedMotion += Math.min(3.0, diffMotion / 25);
-            }
-
-            const bR = Math.abs(curr[idx] - bg[idx]);
-            const bG = Math.abs(curr[idx + 1] - bg[idx + 1]);
-            const bB = Math.abs(curr[idx + 2] - bg[idx + 2]);
-            const diffPresence = (bR + bG + bB) / 3;
-            if (diffPresence > presenceThreshold) {
-              weightedPresence += Math.min(2.5, diffPresence / 35);
-            }
-
-            totalPixels++;
+            const pixel = y * this.procWidth + x;
+            mask[(y - y0) * width + x - x0] = foreground[pixel];
+            motionPixels += moving[pixel];
           }
         }
+        // Hitung satu area menyambung, bukan kumpulan noise atau piksel yang diperkuat.
+        const largestRegion = this.largestRegionSize(mask, width, height);
+        const presenceRatio = totalPixels > 0 && largestRegion >= 12 ? largestRegion / totalPixels : 0;
+        scores.push(presenceRatio);
+        if (totalPixels > 0 && motionPixels / totalPixels > 0.30) extremeZonesCount++;
 
-        const motionRatio = totalPixels > 0 ? weightedMotion / totalPixels : 0;
-        const presenceRatio = totalPixels > 0 ? weightedPresence / totalPixels : 0;
-
-        const motionNorm = Math.min(1, motionRatio / 0.022);
-        const presenceNorm = Math.min(1, presenceRatio / 0.080);
-
-        const combinedScore = Math.min(1, Math.max(motionNorm, presenceNorm * 0.90));
-        scores.push(combinedScore);
-
-        if (motionRatio > 0.22) extremeZonesCount++;
       }
 
-      const isGlobalBodySpike = zones.length >= 4 && extremeZonesCount >= 4;
+      const isGlobalBodySpike = wholeFrameMoving || (zones.length >= 3 && extremeZonesCount >= 3);
       result.players[playerKey] = {
         scores,
         globalSpike: isGlobalBodySpike
       };
     }
 
-    // Tangan diam tetap terbaca selama waktu tahan; adaptasi tidak bergantung FPS.
-    const backgroundAlpha = 1 - Math.exp(-elapsedMs / 8000);
-    for (let i = 0; i < curr.length; i++) {
-      bg[i] += (curr[i] - bg[i]) * backgroundAlpha;
+    // Jangan menyerap telapak ke latar: ini mencegah bayangan sensor setelah tangan ditarik.
+    const backgroundAlpha = 1 - Math.exp(-elapsedMs / 1500);
+    for (let pixel = 0; pixel < foreground.length; pixel++) {
+      if (foreground[pixel]) continue;
+      const i = pixel * 4;
+      for (let c = 0; c < 3; c++) bg[i + c] += (curr[i + c] - bgShift[c] - bg[i + c]) * backgroundAlpha;
     }
 
     this.prevFrameData.set(curr);
     return result;
+  }
+
+  medianFrameShift(current, reference) {
+    const channels = [[], [], []];
+    for (let i = 0; i < current.length; i += 64) {
+      for (let c = 0; c < 3; c++) channels[c].push(current[i + c] - reference[i + c]);
+    }
+    return channels.map(values => {
+      values.sort((a, b) => a - b);
+      return values[Math.floor(values.length / 2)] || 0;
+    });
+  }
+
+  largestRegionSize(mask, width, height) {
+    const queue = new Int32Array(mask.length);
+    let largest = 0;
+    for (let start = 0; start < mask.length; start++) {
+      if (!mask[start]) continue;
+      let head = 0, tail = 1;
+      queue[0] = start;
+      mask[start] = 0;
+      while (head < tail) {
+        const index = queue[head++];
+        const x = index % width;
+        const y = Math.floor(index / width);
+        const neighbors = [x > 0 ? index - 1 : -1, x + 1 < width ? index + 1 : -1,
+          y > 0 ? index - width : -1, y + 1 < height ? index + width : -1];
+        for (const neighbor of neighbors) {
+          if (neighbor < 0 || !mask[neighbor]) continue;
+          mask[neighbor] = 0;
+          queue[tail++] = neighbor;
+        }
+      }
+      largest = Math.max(largest, tail);
+    }
+    return largest;
   }
 
   spawnParticles(x, y, color = "#FFB300") {
@@ -1478,10 +1521,10 @@ class EcosystemQuadrantGame {
     this.sessionHistory = [];
 
     // Durasi tetap: gerakan kuat tidak mempercepat konfirmasi.
-    this.dwellDurationMs = 1500;
-    this.motionThreshold = 0.22;
-    this.dwellGraceMs = 180;
-    this.releaseDurationMs = 350;
+    this.dwellDurationMs = 2000;
+    this.motionThreshold = 0.24;
+    this.dwellGraceMs = 120;
+    this.releaseDurationMs = 500;
     this.cooldownMs = 1200;
     this.readPhaseMs = 2000;
 
@@ -1537,6 +1580,19 @@ class EcosystemQuadrantGame {
   }
 
   bindEvents() {
+    document.addEventListener("visibilitychange", () => {
+      if (document.hidden && this.state === "PLAYING") this.pauseGame();
+      if (document.hidden) this.practiceSelection = this.createCameraSelection();
+    });
+    document.getElementById("camera-sensitivity").addEventListener("change", (event) => {
+      const value = Number(event.target.value);
+      this.motionThreshold = [0.16, 0.24, 0.36].includes(value) ? value : 0.24;
+      this.practiceSelection = this.createCameraSelection();
+      this.players.forEach((p, idx) => {
+        Object.assign(p, this.createCameraSelection());
+        this.renderCameraProgress(p, idx);
+      });
+    });
     document.getElementById("btn-toggle-audio").addEventListener("click", () => {
       const muted = this.audio.toggleMute();
       document.getElementById("audio-icon").textContent = muted ? "🔇" : "🔊";
@@ -1957,8 +2013,8 @@ class EcosystemQuadrantGame {
     const footerHint = document.getElementById("footer-control-hint");
     if (footerHint) {
       footerHint.textContent = this.posture === "seated"
-        ? "🪑 Mode Duduk: Tahan tangan 1,5 detik untuk memilih. Turunkan tangan setelah menjawab."
-        : "🧍 Mode Berdiri: Tahan tangan 1,5 detik untuk memilih. Turunkan tangan setelah menjawab.";
+        ? "🪑 Mode Duduk: Tahan tangan 2 detik untuk memilih. Turunkan tangan setelah menjawab."
+        : "🧍 Mode Berdiri: Tahan tangan 2 detik untuk memilih. Turunkan tangan setelah menjawab.";
     }
   }
 
@@ -2471,7 +2527,7 @@ class EcosystemQuadrantGame {
       if (!isReadingPhase && p.needsRelease && phaseEl) {
         phaseEl.textContent = "🖐️ TURUNKAN TANGAN SEBENTAR";
       } else if (!isReadingPhase && phaseEl) {
-        phaseEl.textContent = "🫧 TAHAN TANGAN 1,5 DETIK";
+        phaseEl.textContent = "🫧 TAHAN TANGAN 2 DETIK";
       }
       this.renderCameraProgress(p, idx, Boolean(pMotion?.globalSpike));
       if (chosen !== -1) {
